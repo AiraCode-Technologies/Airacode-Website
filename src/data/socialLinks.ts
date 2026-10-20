@@ -2,4 +2,5 @@
 export const socialLinks = [
   { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/naga-vamsi-kondisetty-929ab7440/" },
   { id: "instagram", label: "Instagram", href: "https://www.instagram.com/airacode_technologies/" },
+  { id: "github", label: "GitHub", href: "https://github.com/AiraCode-Techonologies" },
 ] as const;
