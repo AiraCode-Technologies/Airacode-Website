@@ -53,9 +53,9 @@ export default function ServicesGrid({ limit }: { limit?: number }) {
       <div className="flex flex-wrap items-center justify-center gap-2">
         {[
           { id: "all", label: "All" },
-          { id: "ai-systems", label: "AI Systems" },
+          { id: "ai-systems", label: "AI" },
           { id: "cloud-data", label: "Cloud & Data" },
-          { id: "modernization", label: "Modernization" },
+          { id: "modernization", label: "Automation & care" },
         ].map((tab) => {
           const isActive = filter === tab.id;
           return (
@@ -64,7 +64,7 @@ export default function ServicesGrid({ limit }: { limit?: number }) {
               onClick={() => setFilter(tab.id)}
               className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? "bg-[#ede9e0] dark:bg-[#1a2130] text-[#eb4a2d] shadow-[inset_2px_2px_4px_rgba(30,37,48,0.1)] scale-105"
+                  ? "bg-[#ede9e0] dark:bg-[#1a2130] text-[#eb4a2d] shadow-[inset_2px_2px_4px_rgba(30,37,48,0.1)] "
                   : "bg-white dark:bg-[#151a24] text-[#4b5563] dark:text-[#9ca3af] shadow-sm hover:text-[#1e2530] dark:hover:text-[#f3f4f6]"
               }`}
             >
@@ -128,10 +128,10 @@ export default function ServicesGrid({ limit }: { limit?: number }) {
                   href={`/services#${service.id}`}
                   className="text-xs font-bold text-[#eb4a2d] hover:text-[#c0392b] flex items-center gap-1 group/link"
                 >
-                  <span>Explore</span>
+                  <span>Learn more</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
                 </Link>
-                <span className="text-[11px] font-mono font-bold text-[#9ca3af]">0{index + 1}</span>
+                
               </div>
             </div>
           );

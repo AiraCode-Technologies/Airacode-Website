@@ -1,6 +1,8 @@
 export interface ServiceItem {
   id: string;
   title: string;
+  /** Short name used in tight spaces (selects, pills). */
+  shortTitle: string;
   slug: string;
   category: "ai-systems" | "cloud-data" | "modernization";
   tagline: string;
@@ -10,18 +12,22 @@ export interface ServiceItem {
   metrics: { label: string; value: string }[];
   deliverables: string[];
   techStack: string[];
-  architectureHighlights: string[];
-  enterpriseUseCases: string[];
+  useCases: string[];
 }
 
 export interface CaseStudyItem {
   id: string;
+  slug: string;
   client: string;
   industry: string;
   headline: string;
   summary: string;
+  challenge: string;
+  approach: string[];
+  outcome: string;
   metrics: { label: string; value: string }[];
   servicesUsed: string[];
+  stack: string[];
   quote: string;
   author: string;
 }
@@ -30,340 +36,356 @@ export const servicesData: ServiceItem[] = [
   {
     id: "ai-website-dev",
     slug: "ai-website-development",
-    title: "AI-based Website Development",
+    title: "AI-Powered Websites",
+    shortTitle: "AI Website",
     category: "ai-systems",
-    tagline: "Intelligent, Hyper-Personalized & Cognitive Web Applications",
+    tagline: "Fast, modern websites with smart search and chat built in",
     description:
-      "Building modern, highly responsive, and intelligent web applications powered by cutting-edge artificial intelligence, personalization engines, smart search capabilities, and dynamic user experience frameworks.",
-    badge: "Cognitive Frontend",
+      "We design and build fast websites that help visitors find what they need, with smart search, AI chat assistants and content that adapts to each visitor.",
+    badge: "Websites",
     iconName: "Globe",
     metrics: [
-      { label: "Lighthouse Score", value: "99+" },
-      { label: "Personalization Lift", value: "+42%" },
-      { label: "Search Latency", value: "<18ms" },
+      { label: "Timeline", value: "1–2 months" },
+      { label: "Speed score", value: "90+" },
+      { label: "You own", value: "All code" },
     ],
     deliverables: [
-      "Semantic vector search & RAG-driven discovery",
-      "Dynamic real-time user personalization engine",
-      "Sub-second Core Web Vitals optimized frontend architecture",
-      "Headless CMS integration with automated AI copywriting pipelines",
-      "Voice, multimodal, and interactive conversational copilots",
+      "Smart search that understands what people mean",
+      "AI chat assistant trained on your content",
+      "Pages that load fast on any phone",
+      "Easy-to-edit content (CMS) with AI writing help",
+      "SEO set up from day one",
     ],
-    techStack: ["Next.js 16", "React 19", "Tailwind CSS", "TypeScript", "Pinecone", "WebSockets", "Vercel Edge"],
-    architectureHighlights: [
-      "Edge-rendered dynamic interfaces with instant personalization",
-      "Hybrid client-server streaming for real-time AI responses",
-      "Zero-layout-shift tactile modern aesthetic with GPU acceleration",
-    ],
-    enterpriseUseCases: [
-      "Enterprise SaaS portals with conversational copilots",
-      "E-commerce platforms with visual and semantic neural search",
-      "Knowledge bases with conversational citation retrieval",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel", "Sanity"],
+    useCases: [
+      "Company and product websites",
+      "Online stores with smarter product search",
+      "Help centres that answer questions instantly",
     ],
   },
   {
     id: "ai-product-dev",
     slug: "ai-product-development",
-    title: "AI Product Development",
+    title: "AI Apps & Products",
+    shortTitle: "AI App / Product",
     category: "ai-systems",
-    tagline: "End-to-End AI-Driven SaaS & Intelligent Software Engineering",
+    tagline: "From idea to a working AI product your customers can use",
     description:
-      "Architecting and engineering complete end-to-end AI-driven software products, SaaS solutions, and intelligent applications custom-tailored to solve complex business challenges.",
-    badge: "Enterprise SaaS",
+      "We turn your idea into a working web or mobile app with AI at its core, from the first version (MVP) through to a product ready for paying customers.",
+    badge: "Products",
     iconName: "Sparkles",
     metrics: [
-      { label: "Time to MVP", value: "3 Weeks" },
-      { label: "User Retention", value: "+68%" },
-      { label: "Inference Cost Cut", value: "54%" },
+      { label: "Timeline", value: "2–4 months" },
+      { label: "Updates", value: "Every 2 wks" },
+      { label: "You own", value: "All code" },
     ],
     deliverables: [
-      "Full-stack AI SaaS platforms with enterprise tenant isolation",
-      "Integrated billing, tiered seat licensing & token consumption tracking",
-      "Proprietary model evaluation and regression benchmarking suite",
-      "Scalable REST & GraphQL APIs with rate-limiting and audit trails",
-      "Production-ready telemetry, user feedback loops, and observability",
+      "A working first version (MVP) within the first month",
+      "User accounts, payments and subscriptions",
+      "Admin dashboard to manage users and data",
+      "Web and mobile apps from one codebase",
+      "Usage tracking so you know what's working",
     ],
-    techStack: ["Python", "FastAPI", "Next.js", "PostgreSQL", "Redis", "Docker", "Stripe", "OpenTelemetry"],
-    architectureHighlights: [
-      "Multi-tenant data isolation with row-level security",
-      "Asynchronous background worker queues for heavy AI processing",
-      "Automated prompt versioning, canary testing, and continuous eval",
-    ],
-    enterpriseUseCases: [
-      "AI-driven automated legal document analyzers",
-      "Medical diagnostic intelligence copilot suites",
-      "Predictive financial portfolio risk simulation SaaS",
+    techStack: ["Next.js", "React Native", "Python", "FastAPI", "PostgreSQL", "Stripe"],
+    useCases: [
+      "SaaS tools for a specific industry",
+      "AI assistants for documents, legal or finance work",
+      "Internal tools that replace spreadsheets",
     ],
   },
   {
     id: "web-maintenance-opt",
     slug: "website-maintenance-optimization",
-    title: "Website Maintenance & Optimization",
+    title: "Website Care & Speed-Up",
+    shortTitle: "Maintenance",
     category: "modernization",
-    tagline: "24/7 Resilience, Zero-Downtime Upgrades & Peak Performance",
+    tagline: "Keep your site fast, secure and always online",
     description:
-      "Ensuring high availability, automated performance optimization, proactive security updates, infrastructure monitoring, and 24/7 technical support for legacy and web platforms.",
-    badge: "24/7 SRE & Ops",
+      "We look after your website or app every month: updates, security fixes, speed improvements and monitoring, so problems are fixed before your customers notice.",
+    badge: "Care plans",
     iconName: "ShieldCheck",
     metrics: [
-      { label: "Uptime SLA", value: "99.99%" },
-      { label: "Incident Resolution", value: "<12m" },
-      { label: "Speed Gain", value: "3.4x" },
+      { label: "Monitoring", value: "24/7" },
+      { label: "Billing", value: "Monthly" },
+      { label: "Reports", value: "Monthly" },
     ],
     deliverables: [
-      "24/7 automated synthetic uptime & latency monitoring",
-      "Continuous vulnerability scanning, WAF management, and automated patching",
-      "Asset minification, Brotli compression, and image edge caching",
-      "Zero-downtime rolling deploys with automated rollback safety",
-      "Dedicated Site Reliability Engineering (SRE) support team",
+      "24/7 uptime monitoring with instant alerts",
+      "Security updates and backups",
+      "Speed fixes: images, caching, code clean-up",
+      "Safe updates with one-click rollback",
+      "A monthly report in plain English",
     ],
-    techStack: ["Datadog", "Cloudflare Enterprise", "Grafana", "Prometheus", "Kubernetes", "Sentry", "PagerDuty"],
-    architectureHighlights: [
-      "Multi-region CDN caching with intelligent invalidation rules",
-      "Automated failover clusters across redundant availability zones",
-      "Continuous load testing to handle sudden 10x traffic spikes",
-    ],
-    enterpriseUseCases: [
-      "High-traffic financial news and trading portals",
-      "Mission-critical e-commerce platforms during peak sales seasons",
-      "Government and enterprise portals requiring rigorous uptime SLAs",
+    techStack: ["Cloudflare", "Sentry", "Grafana", "GitHub Actions", "Vercel"],
+    useCases: [
+      "Busy online stores during sales",
+      "Older sites that feel slow",
+      "Teams without an in-house developer",
     ],
   },
   {
     id: "ai-fine-tuning",
     slug: "ai-fine-tuning-model-optimization",
-    title: "AI Fine-Tuning & Model Optimization",
+    title: "Custom AI Models",
+    shortTitle: "Custom AI Model",
     category: "ai-systems",
-    tagline: "Domain-Specific Model Distillation, LoRA & Low-Latency Quantization",
+    tagline: "AI trained on your data, so it speaks your business",
     description:
-      "Customizing, fine-tuning, and aligning Large Language Models (LLMs) and generative AI foundation architectures on domain-specific datasets for high precision, reduced latency, and enterprise reliability.",
-    badge: "Deep Learning",
+      "We adapt AI models to your own documents and data, so answers are more accurate for your field, cheaper to run, and can stay inside your own cloud account.",
+    badge: "AI models",
     iconName: "Cpu",
     metrics: [
-      { label: "Latency Drop", value: "-62%" },
-      { label: "Domain Accuracy", value: "98.4%" },
-      { label: "VRAM Savings", value: "70%" },
+      { label: "Timeline", value: "1–3 months" },
+      { label: "Runs in", value: "Your cloud" },
+      { label: "Data", value: "Stays private" },
     ],
     deliverables: [
-      "LoRA / QLoRA parameter-efficient domain adaptation pipelines",
-      "Model distillation from large frontier models to edge-optimized SLMs",
-      "vLLM, TensorRT-LLM, and ONNX Runtime deployment configurations",
-      "RLHF and DPO alignment for brand tone, safety, and strict schema compliance",
-      "Private on-premise and VPC dedicated GPU inference clusters",
+      "A model trained on your examples and tone",
+      "Tests that measure accuracy before launch",
+      "Lower running costs than off-the-shelf APIs",
+      "Option to run fully inside your own cloud",
+      "Guardrails so answers stay on-topic",
     ],
-    techStack: ["PyTorch", "Hugging Face", "vLLM", "TensorRT-LLM", "Ray Train", "NVIDIA CUDA", "Weights & Biases"],
-    architectureHighlights: [
-      "4-bit and 8-bit quantization (AWQ/GPTQ) preserving 99% accuracy",
-      "Continuous synthetic data generation with hallucination filters",
-      "Self-hosted private inference protecting confidential enterprise IP",
-    ],
-    enterpriseUseCases: [
-      "Proprietary biomedical and clinical research analysis models",
-      "High-security financial compliance and audit reasoning engines",
-      "Automated code generation tailored to internal corporate frameworks",
+    techStack: ["PyTorch", "Hugging Face", "vLLM", "Llama", "Mistral", "Weights & Biases"],
+    useCases: [
+      "Answering questions from internal documents",
+      "Industry-specific writing and review",
+      "Private AI where data can't leave your company",
     ],
   },
   {
     id: "cloud-infrastructure",
     slug: "cloud-infrastructure-multi-cloud",
-    title: "Cloud Infrastructure & Multi-Cloud Deployments",
+    title: "Cloud Setup & Hosting",
+    shortTitle: "Cloud Setup",
     category: "cloud-data",
-    tagline: "Resilient Cloud-Native Architectures across AWS, GCP & Azure",
+    tagline: "Reliable hosting on AWS, Google Cloud or Azure",
     description:
-      "Designing cloud-native architectures, managing containerized infrastructure, and executing seamless deployments across AWS, Google Cloud Platform (GCP), and Microsoft Azure.",
-    badge: "Cloud-Native",
+      "We set up and move your systems to the cloud so they stay online, grow with your traffic and don't cost more than they should.",
+    badge: "Cloud",
     iconName: "Cloud",
     metrics: [
-      { label: "Cloud Cost Cut", value: "38%" },
-      { label: "Deploy Velocity", value: "10x Faster" },
-      { label: "Recovery Time", value: "<30s" },
+      { label: "Timeline", value: "1–2 months" },
+      { label: "Providers", value: "AWS · GCP · Azure" },
+      { label: "Backups", value: "Automatic" },
     ],
     deliverables: [
-      "Infrastructure as Code (IaC) with modular Terraform and OpenTofu",
-      "Enterprise Kubernetes (EKS, GKE, AKS) orchestration and service mesh",
-      "Multi-cloud disaster recovery architectures and data replication",
-      "Zero-Trust network architecture, IAM segregation & secret management",
-      "Automated CI/CD GitOps pipelines with progressive delivery (ArgoCD)",
+      "Cloud setup written as code, easy to repeat",
+      "Automatic scaling when traffic grows",
+      "Backups and a tested recovery plan",
+      "Secure access and secret management",
+      "Automatic deploys every time code changes",
     ],
-    techStack: ["Terraform", "Kubernetes", "AWS", "Google Cloud (GCP)", "Microsoft Azure", "ArgoCD", "Vault"],
-    architectureHighlights: [
-      "Stateless autoscaling nodes adjusting dynamically to load spikes",
-      "Multi-region active-active topology eliminating single points of failure",
-      "Granular FinOps tagging and automated idle resource termination",
-    ],
-    enterpriseUseCases: [
-      "Global banking systems requiring strict multi-cloud redundancy",
-      "Healthcare networks governed by sovereign data residency rules",
-      "High-throughput media streaming backends handling millions of connections",
+    techStack: ["AWS", "Google Cloud", "Azure", "Docker", "Kubernetes", "Terraform"],
+    useCases: [
+      "Moving off an old server",
+      "Cutting a cloud bill that keeps growing",
+      "Getting ready for a big launch",
     ],
   },
   {
     id: "data-engineering",
     slug: "data-analysis-data-engineering",
-    title: "Data Analysis & Data Engineering",
+    title: "Data & Dashboards",
+    shortTitle: "Data & Dashboards",
     category: "cloud-data",
-    tagline: "Resilient Data Pipelines, Lakehouses & Strategic Intelligence",
+    tagline: "Bring your data together and see what's really happening",
     description:
-      "Building resilient data pipelines, scalable data warehouses, and enterprise intelligence platforms to convert unstructured business data into actionable strategic insights.",
-    badge: "Big Data & BI",
+      "We connect data from all your tools into one place and build clear dashboards, so you can make decisions from real numbers instead of guesswork.",
+    badge: "Data",
     iconName: "Database",
     metrics: [
-      { label: "Query Speed", value: "14x Faster" },
-      { label: "Pipeline SLA", value: "99.98%" },
-      { label: "Throughput", value: "100k+ ev/s" },
+      { label: "Timeline", value: "1–3 months" },
+      { label: "Dashboards", value: "Live" },
+      { label: "Sources", value: "Any tool" },
     ],
     deliverables: [
-      "Streaming and batch ETL/ELT pipelines using Apache Kafka and Spark",
-      "Enterprise Lakehouse architectures on Snowflake, BigQuery, and Databricks",
-      "Automated data quality assertions, schema validation, and lineage tracking",
-      "Interactive executive dashboards and real-time anomaly detection",
-      "Unstructured-to-structured vector embeddings conversion pipelines",
+      "All your data in one central place",
+      "Automatic daily (or live) data updates",
+      "Dashboards your whole team can read",
+      "Alerts when numbers look unusual",
+      "Checks that catch bad or missing data",
     ],
-    techStack: ["Snowflake", "Google BigQuery", "Apache Kafka", "dbt", "Apache Spark", "Airflow", "ClickHouse"],
-    architectureHighlights: [
-      "Medallion data architecture (Bronze, Silver, Gold) for guaranteed data purity",
-      "Real-time Change Data Capture (CDC) from operational databases",
-      "Columnar storage optimization with automated partition pruning",
-    ],
-    enterpriseUseCases: [
-      "Supply chain logistics real-time tracking and delivery ETA prediction",
-      "Customer lifetime value (LTV) and churn prediction for digital brands",
-      "Enterprise fraud analytics correlating multi-channel transactional streams",
+    techStack: ["BigQuery", "Snowflake", "dbt", "Airflow", "PostgreSQL", "Metabase"],
+    useCases: [
+      "Sales and marketing reporting",
+      "Stock and delivery tracking",
+      "Spotting customers likely to leave",
     ],
   },
   {
     id: "workflow-automation",
     slug: "enterprise-workflow-automation",
-    title: "Enterprise Workflow Automation",
+    title: "Business Automation",
+    shortTitle: "Automation",
     category: "modernization",
-    tagline: "Intelligent Pipeline Orchestration with n8n, Zapier & Make",
+    tagline: "Stop copy-pasting: let your tools talk to each other",
     description:
-      "Automating repetitive operational workflows, interconnecting software ecosystems, and building automated pipelines using platforms like n8n, Zapier, and Make.",
-    badge: "Automation Ops",
+      "We automate repetitive tasks like data entry, follow-ups, invoices and reports by connecting the tools you already use, with tools like n8n, Make and Zapier.",
+    badge: "Automation",
     iconName: "Workflow",
     metrics: [
-      { label: "Labor Saved", value: "85% Saved" },
-      { label: "Cycle Time", value: "-90%" },
-      { label: "Error Reduction", value: "99.4%" },
+      { label: "Timeline", value: "1–2 months" },
+      { label: "Works with", value: "Your tools" },
+      { label: "Runs", value: "24/7" },
     ],
     deliverables: [
-      "Self-hosted secure n8n enterprise instances with custom node integrations",
-      "Complex multi-app webhooks connecting ERP, CRM, Slack, and accounting stacks",
-      "Intelligent exception handling, automated retry logic, and alerting",
-      "AI-augmented document parsing, OCR routing, and data extraction",
-      "Comprehensive run-history logging, security auditing, and compliance records",
+      "Your apps connected: CRM, email, Slack, accounting",
+      "AI that reads documents and fills in forms",
+      "Approvals sent to Slack or Teams",
+      "Alerts if anything fails, with automatic retries",
+      "A clear log of everything that ran",
     ],
-    techStack: ["n8n", "Make", "Zapier Enterprise", "Node.js", "Webhooks", "REST APIs", "PostgreSQL"],
-    architectureHighlights: [
-      "Self-hosted workflow nodes executing inside private enterprise VPCs",
-      "Idempotent execution pipelines preventing duplicate event processing",
-      "Dynamic human-in-the-loop approval triggers via Slack/Teams",
-    ],
-    enterpriseUseCases: [
-      "Automated customer onboarding and KYC document verification",
-      "Cross-platform inventory reconciliation between ERP and Shopify/Amazon",
-      "Automated enterprise IT provisioning and user lifecycle management",
+    techStack: ["n8n", "Make", "Zapier", "Node.js", "Airtable", "Slack"],
+    useCases: [
+      "New customer onboarding",
+      "Syncing stock between Shopify, Amazon and your ERP",
+      "Invoice and expense processing",
     ],
   },
   {
     id: "agentic-ai",
     slug: "agentic-ai-autonomous-workflows",
-    title: "Agentic AI & Autonomous Workflows",
+    title: "AI Agents",
+    shortTitle: "AI Agents",
     category: "ai-systems",
-    tagline: "Sophisticated Multi-Agent Swarms, Tool Calling & Self-Correcting Logic",
+    tagline: "AI assistants that complete tasks, not just answer questions",
     description:
-      "Engineering sophisticated multi-agent AI systems capable of executing multi-step business logic, autonomous decision-making, task orchestration, and context-aware tool usage.",
-    badge: "Agentic Swarms",
+      "We build AI agents that can handle multi-step work on their own: reading requests, looking things up, using your tools and asking a person when they're unsure.",
+    badge: "Agents",
     iconName: "Bot",
     metrics: [
-      { label: "Task Success", value: "96.7%" },
-      { label: "Decision Latency", value: "<1.2s" },
-      { label: "Op Overhead", value: "-78%" },
+      { label: "Timeline", value: "1–3 months" },
+      { label: "Human check", value: "Built in" },
+      { label: "Works", value: "24/7" },
     ],
     deliverables: [
-      "Hierarchical multi-agent architectures (Planner, Researcher, Executor, Critic)",
-      "Dynamic tool calling with strict schema sandboxing and API authentication",
-      "Persistent memory graph engines combining vector, episodic, and semantic recall",
-      "Self-correcting code generation, automated verification, and retry loops",
-      "Enterprise guardrails, human intervention gateways, and audit telemetry",
+      "Agents that plan, act and check their own work",
+      "Safe access to your tools and data",
+      "Memory of past conversations and context",
+      "A person approves anything important",
+      "A full log of every action taken",
     ],
-    techStack: ["LangGraph", "LlamaIndex", "CrewAI", "Anthropic Claude 3.7", "Gemini 2.5", "Pinecone", "Temporal"],
-    architectureHighlights: [
-      "Stateful distributed event loops managed by durable execution engines",
-      "Dynamic context compression keeping agent memory within optimal token bounds",
-      "Deterministic safety sandboxes intercepting unsafe system actions",
-    ],
-    enterpriseUseCases: [
-      "Autonomous customer support agents resolving tier-2 technical inquiries",
-      "Automated financial report auditing and reconciliation agents",
-      "Autonomous software code review, bug triage, and patch generation swarms",
+    techStack: ["Claude", "GPT", "Gemini", "LangGraph", "MCP", "pgvector"],
+    useCases: [
+      "Customer support that resolves issues end-to-end",
+      "Checking and reconciling financial reports",
+      "Reviewing code and triaging bugs",
     ],
   },
 ];
 
+export const getServiceById = (id: string) => servicesData.find((s) => s.id === id);
+
 export const clientCaseStudies: CaseStudyItem[] = [
   {
     id: "apex-fintech",
+    slug: "fintech-fraud-detection",
     client: "Apex Financial Core",
     industry: "FinTech & Banking",
-    headline: "Sub-Second AI Fraud Detection & Legacy Mainframe Deconstruction",
+    headline: "Real-time fraud checks on a 14-year-old banking system",
     summary:
-      "AIRACODE modernized a 14-year-old transactional architecture into an event-driven microservices stack on AWS & Google Cloud, integrating an autonomous AI risk evaluation agent.",
-    metrics: [
-      { label: "Query Latency", value: "74% Drop" },
-      { label: "Fraud Detection", value: "<85ms" },
-      { label: "Cost Savings", value: "$1.8M Saved" },
+      "We moved a 14-year-old transaction system to the cloud piece by piece and added an AI risk checker, without stopping a single payment.",
+    challenge:
+      "An old, all-in-one transaction system was too slow to check payments for fraud in real time, and any downtime meant lost transactions.",
+    approach: [
+      "Copied live data into a new, modern system while the old one kept running",
+      "Moved features over one at a time, so nothing had to switch off",
+      "Added a private AI model that scores every transaction for risk",
+      "Switched traffic over gradually, with an instant way back",
     ],
-    servicesUsed: ["Agentic AI", "Cloud Infrastructure", "Data Engineering"],
+    outcome: "Payments are checked for fraud in under 85ms, and queries run 74% faster.",
+    metrics: [
+      { label: "Query speed", value: "74% faster" },
+      { label: "Fraud check", value: "<85ms" },
+      { label: "Cost savings", value: "$1.8M" },
+    ],
+    servicesUsed: ["agentic-ai", "cloud-infrastructure", "data-engineering"],
+    stack: ["AWS", "Google Cloud", "Kafka", "PostgreSQL", "Python", "Kubernetes"],
     quote: "AIRACODE transformed our core systems without a single second of transactional downtime.",
     author: "Chief Technology Officer, Apex Financial",
   },
   {
     id: "synthetix-health",
+    slug: "healthtech-clinical-triage",
     client: "Synthetix Health Network",
-    industry: "HealthTech & Diagnostics",
-    headline: "HIPAA-Compliant Agentic Clinical Record Synthesis & Triage",
+    industry: "HealthTech",
+    headline: "AI that summarises patient records and cuts triage backlogs",
     summary:
-      "Designed a private VPC fine-tuned medical intelligence model that cross-references unstructured EHR records, cutting manual clinical triage backlogs by 80%.",
-    metrics: [
-      { label: "Triage Backlog", value: "80% Cut" },
-      { label: "Clinical Precision", value: "99.1%" },
-      { label: "Compliance Score", value: "100% HIPAA" },
+      "A private AI model, trained for medical records, reads unstructured patient notes and helps clinicians triage faster, cutting the backlog by 80%.",
+    challenge:
+      "Clinicians were buried in unstructured patient records, and strict privacy rules meant public AI tools couldn't be used.",
+    approach: [
+      "Trained a private AI model on medical language, inside the client's own cloud",
+      "Built an assistant that summarises records and flags urgent cases",
+      "Kept a clinician in the loop to approve every decision",
+      "Logged every step for compliance reviews",
     ],
-    servicesUsed: ["AI Fine-Tuning", "AI Product Development", "Enterprise Workflow Automation"],
+    outcome: "Triage backlog cut by 80%, with patient data never leaving the client's cloud.",
+    metrics: [
+      { label: "Triage backlog", value: "80% less" },
+      { label: "Accuracy", value: "99.1%" },
+      { label: "Data", value: "Private cloud" },
+    ],
+    servicesUsed: ["ai-fine-tuning", "ai-product-dev", "workflow-automation"],
+    stack: ["Llama", "vLLM", "Python", "FastAPI", "PostgreSQL", "Azure"],
     quote: "The autonomous agent workflows engineered by AIRACODE set a new benchmark for clinical reliability.",
     author: "Head of Medical Informatics, Synthetix Health",
   },
   {
     id: "strata-retail",
+    slug: "retail-black-friday-scale",
     client: "Strata Global Retail",
-    industry: "Omnichannel Commerce",
-    headline: "AI-Powered Headless Frontend & Multi-Cloud Kubernetes Cluster",
+    industry: "Retail & E-commerce",
+    headline: "A faster store that stayed online through Black Friday",
     summary:
-      "Built a high-performance Next.js cognitive web application backed by an automated n8n workflow ecosystem handling 50M+ events during Black Friday with 100% uptime.",
-    metrics: [
-      { label: "Peak Volume", value: "52M Events/Day" },
-      { label: "Conversion Lift", value: "+34%" },
-      { label: "Peak Uptime", value: "100.0%" },
+      "We rebuilt the storefront for speed and automated the back office, handling 50M+ events on Black Friday with no downtime.",
+    challenge:
+      "Flash sales caused checkout slowdowns and systems falling out of sync during the busiest days of the year.",
+    approach: [
+      "Rebuilt the storefront with Next.js so pages load instantly",
+      "Set up hosting that adds capacity automatically during traffic spikes",
+      "Automated order, stock and customer workflows with n8n",
+      "Load-tested at 10x normal traffic before the sale",
     ],
-    servicesUsed: ["AI-based Website Development", "Cloud Infrastructure", "Website Maintenance & Optimization"],
+    outcome: "52M events handled on peak day with 100% uptime and a 34% lift in conversions.",
+    metrics: [
+      { label: "Peak volume", value: "52M/day" },
+      { label: "Conversions", value: "+34%" },
+      { label: "Uptime", value: "100%" },
+    ],
+    servicesUsed: ["ai-website-dev", "cloud-infrastructure", "web-maintenance-opt"],
+    stack: ["Next.js", "Vercel", "Kubernetes", "n8n", "PostgreSQL", "Cloudflare"],
     quote: "Our frontend feels instantaneous. Customer engagement surged across every key market.",
     author: "VP of Digital Engineering, Strata Retail",
   },
   {
     id: "omni-freight",
+    slug: "logistics-ai-dispatch",
     client: "OmniLogistics Worldwide",
-    industry: "Supply Chain & Freight",
-    headline: "Autonomous Multi-Agent Dispatch & Real-Time Data Pipeline",
+    industry: "Logistics",
+    headline: "AI agents that dispatch freight automatically",
     summary:
-      "Replaced 4 disconnected manual tracking systems with an autonomous multi-agent coordination swarm and real-time Kafka-Snowflake streaming lakehouse.",
-    metrics: [
-      { label: "Annual Savings", value: "$4.2M" },
-      { label: "Dispatch Auto", value: "92%" },
-      { label: "ETA Accuracy", value: "99.4%" },
+      "We replaced 4 disconnected manual tracking systems with AI agents that coordinate dispatch, backed by one live data platform.",
+    challenge:
+      "Freight tracking was spread across disconnected systems, so dispatch was slow, manual and error-prone.",
+    approach: [
+      "Brought tracking data from every system into one live platform",
+      "Built AI agents that plan routes and assign drivers",
+      "Sent exceptions to a dispatcher for approval in Slack",
+      "Added dashboards showing every shipment in real time",
     ],
-    servicesUsed: ["Agentic AI", "Enterprise Workflow Automation", "Data Analysis & Data Engineering"],
+    outcome: "92% of dispatches now happen automatically, saving $4.2M a year.",
+    metrics: [
+      { label: "Yearly savings", value: "$4.2M" },
+      { label: "Auto-dispatch", value: "92%" },
+      { label: "ETA accuracy", value: "99.4%" },
+    ],
+    servicesUsed: ["agentic-ai", "workflow-automation", "data-engineering"],
+    stack: ["LangGraph", "Claude", "Kafka", "Snowflake", "n8n", "Slack"],
     quote: "AIRACODE turned our chaotic logistics tracking into an autonomous, self-orchestrating machine.",
     author: "Chief Operations Officer, OmniLogistics",
   },
 ];
+
+export const getCaseStudyBySlug = (slug: string) => clientCaseStudies.find((c) => c.slug === slug);

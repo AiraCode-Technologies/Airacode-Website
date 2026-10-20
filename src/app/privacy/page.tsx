@@ -3,7 +3,7 @@ import { ShieldCheck, Lock, Database, Server } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CinematicScrollTracker from "@/components/CinematicScrollTracker";
-import ClayAmbientShapes from "@/components/ClayAmbientShapes";
+import SiteBackground from "@/components/SiteBackground";
 
 export const metadata = {
   title: "Privacy Policy | AIRACODE",
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
   return (
     <>
       <CinematicScrollTracker />
-      <ClayAmbientShapes />
+      <SiteBackground />
       <Navbar />
 
       <main className="relative z-10 flex-1 w-full">

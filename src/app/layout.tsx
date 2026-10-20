@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import JsonLd from "@/components/JsonLd";
 
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "AIRACODE | Enterprise AI Engineering, System Modernization & Autonomous Workflows",
+  title: "AIRACODE | AI Products, Websites & Automation for Growing Businesses",
   description:
-    "We transform your vision into reality by digitalizing your business, modernizing legacy systems, and scaling your digital products with state-of-the-art AI technology solutions.",
+    "We build AI-powered websites, apps and automations, and upgrade old systems, so your business runs faster with less manual work.",
   keywords: [
     "AIRACODE",
     "AI Website Development",
@@ -29,7 +36,6 @@ export const metadata: Metadata = {
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-64x64.png", sizes: "64x64", type: "image/png" },
-      { url: "/logo-icon.png", sizes: "192x192", type: "image/png" },
       { url: "/logo-icon.png", sizes: "512x512", type: "image/png" },
     ],
     shortcut: "/favicon.ico",
@@ -38,9 +44,9 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "AIRACODE | Transforming Vision Into Autonomous Reality",
+    title: "AIRACODE | AI Products, Websites & Automation",
     description:
-      "Digitalizing businesses, modernizing legacy systems, and scaling digital products with state-of-the-art AI solutions.",
+      "We build AI-powered websites, apps and automations, and upgrade old systems, so your business runs faster.",
     url: "https://airacode.online",
     siteName: "AIRACODE",
     type: "website",
@@ -50,7 +56,7 @@ export const metadata: Metadata = {
         url: "https://airacode.online/og-image.png",
         width: 1200,
         height: 630,
-        alt: "AIRACODE — Enterprise AI Engineering & Autonomous Workflows",
+        alt: "AIRACODE — AI products, websites and automation",
       },
       {
         url: "https://airacode.online/logo-icon.png",
@@ -62,9 +68,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AIRACODE | Transforming Vision Into Autonomous Reality",
+    title: "AIRACODE | AI Products, Websites & Automation",
     description:
-      "Digitalizing businesses, modernizing legacy systems, and scaling digital products with state-of-the-art AI solutions.",
+      "We build AI-powered websites, apps and automations, and upgrade old systems, so your business runs faster.",
     images: ["https://airacode.online/og-image.png"],
   },
 };
@@ -82,19 +88,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="h-full antialiased scroll-smooth">
+    <html lang="en" suppressHydrationWarning className={`${jakarta.variable} h-full antialiased scroll-smooth`}>
       <head>
         {/* Security: Enforce HTTPS & upgrade insecure requests automatically */}
-        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-
-        {/* HTML Header Logo & Favicon definitions */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/logo-icon.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 
         {/* Structured Data / Organization & WebSite Schema */}
         <JsonLd />

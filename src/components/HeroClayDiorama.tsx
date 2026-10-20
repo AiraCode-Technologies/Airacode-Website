@@ -28,39 +28,39 @@ export default function HeroClayDiorama() {
   const nodes: Record<string, NodeData> = {
     "ai-web": {
       id: "ai-web",
-      name: "AI Web",
-      tagline: "Next-gen edge frontend with semantic search and sub-20ms rendering.",
-      category: "Frontend",
-      metric: "99+",
-      metricLabel: "Lighthouse Score",
-      techs: ["Next.js 16", "React 19", "Tailwind", "Pinecone"],
+      name: "AI Websites",
+      tagline: "Fast websites with smart search and an AI assistant that answers visitors' questions.",
+      category: "Websites",
+      metric: "1–2 months",
+      metricLabel: "Typical timeline",
+      techs: ["Next.js", "React", "Tailwind CSS", "Vercel"],
     },
     "agentic-swarm": {
       id: "agentic-swarm",
-      name: "Agent Swarm",
-      tagline: "Autonomous multi-agent DAG execution with verified deterministic tools.",
-      category: "Autonomous AI",
-      metric: "<85ms",
-      metricLabel: "Decision Latency",
-      techs: ["LangGraph", "CrewAI", "vLLM", "Pinecone"],
+      name: "AI Agents",
+      tagline: "AI assistants that handle multi-step tasks on their own, and ask a person when unsure.",
+      category: "AI Agents",
+      metric: "24/7",
+      metricLabel: "Always working",
+      techs: ["Claude", "GPT", "LangGraph", "MCP"],
     },
     "multi-cloud": {
       id: "multi-cloud",
-      name: "Multi-Cloud",
-      tagline: "Self-healing Kubernetes clusters across AWS, GCP, and Azure with 99.99% SLA.",
-      category: "Infrastructure",
-      metric: "99.99%",
-      metricLabel: "Uptime SLA",
-      techs: ["AWS", "GCP", "Kubernetes", "Terraform"],
+      name: "Cloud Hosting",
+      tagline: "Reliable hosting on AWS, Google Cloud or Azure that grows with your traffic.",
+      category: "Cloud",
+      metric: "Auto",
+      metricLabel: "Scaling & backups",
+      techs: ["AWS", "Google Cloud", "Docker", "Terraform"],
     },
     "data-modernization": {
       id: "data-modernization",
-      name: "Data Core",
-      tagline: "Real-time CDC pipeline decomposing legacy monoliths without downtime.",
-      category: "Modernization",
-      metric: "0s",
-      metricLabel: "Cutover Downtime",
-      techs: ["Kafka", "Snowflake", "dbt", "n8n"],
+      name: "System Upgrades",
+      tagline: "We move your old system to a modern one step by step, while it keeps running.",
+      category: "Upgrades",
+      metric: "None",
+      metricLabel: "Downtime needed",
+      techs: ["PostgreSQL", "BigQuery", "dbt", "n8n"],
     },
   };
 
@@ -87,12 +87,9 @@ export default function HeroClayDiorama() {
                 boxShadow: "10px 16px 32px rgba(235, 74, 45, 0.4), inset 3px 3px 6px rgba(255, 255, 255, 0.5), inset -3px -3px 6px rgba(130, 25, 8, 0.4)",
               }}
             >
-              <Cpu className="w-8 h-8 sm:w-10 sm:h-10 mb-1 animate-pulse" />
+              <Cpu className="w-8 h-8 sm:w-10 sm:h-10 mb-1 " />
               <span className="text-[10px] sm:text-xs font-black tracking-wider uppercase font-mono">
-                AIRACORE
-              </span>
-              <span className="text-[8px] sm:text-[9px] font-mono text-white/80">
-                ACTIVE
+                AIRACODE
               </span>
             </div>
 
@@ -113,7 +110,7 @@ export default function HeroClayDiorama() {
                 <Globe className="w-6 h-6 stroke-[2.5]" />
               </div>
               <span className="mt-1 text-[10px] font-bold font-mono text-[#1e2530] dark:text-[#f3f4f6] px-2 py-0.5 rounded-full bg-white dark:bg-[#151a24] shadow-sm border border-white dark:border-white/10">
-                Web AI
+                Websites
               </span>
             </button>
 
@@ -176,13 +173,13 @@ export default function HeroClayDiorama() {
                 <Database className="w-6 h-6 stroke-[2.5]" />
               </div>
               <span className="mt-1 text-[10px] font-bold font-mono text-[#1e2530] dark:text-[#f3f4f6] px-2 py-0.5 rounded-full bg-white dark:bg-[#151a24] shadow-sm border border-white dark:border-white/10">
-                Data
+                Upgrades
               </span>
             </button>
           </div>
           
           <span className="text-[11px] font-mono text-[#6b7280] dark:text-[#9ca3af] font-semibold mt-1">
-            Tap any node to view architecture
+            Tap an icon to learn more
           </span>
         </div>
 
@@ -192,10 +189,7 @@ export default function HeroClayDiorama() {
             <span className="text-xs font-mono font-bold uppercase text-[#eb4a2d]">
               {activeNode.category}
             </span>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-[#151a24] shadow-sm text-xs font-mono font-bold text-[#059669]">
-              <span className="w-2 h-2 rounded-full bg-[#10b981] animate-ping" />
-              <span>LIVE</span>
-            </div>
+
           </div>
 
           <div>
@@ -225,7 +219,7 @@ export default function HeroClayDiorama() {
           {/* Tech Stack Pills */}
           <div className="space-y-1.5">
             <span className="text-[11px] font-mono uppercase text-[#6b7280] dark:text-[#9ca3af] font-bold block">
-              Core Stack
+              Built with
             </span>
             <div className="flex flex-wrap gap-1.5">
               {activeNode.techs.map((tech) => (

@@ -16,15 +16,15 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CinematicScrollTracker from "@/components/CinematicScrollTracker";
-import ClayAmbientShapes from "@/components/ClayAmbientShapes";
+import SiteBackground from "@/components/SiteBackground";
 import SectionHeader from "@/components/SectionHeader";
-import ProjectEstimator from "@/components/ProjectEstimator";
+import TechStackGrid from "@/components/TechStackGrid";
 import { servicesData } from "@/data/servicesData";
 
 export const metadata: Metadata = {
   title: "Services | AIRACODE",
   description:
-    "Explore AIRACODE's 8 core engineering disciplines: AI Web, AI Products, Maintenance, Model Fine-Tuning, Multi-Cloud, Data Engineering, Automation, and Autonomous Agents.",
+    "AI-powered websites, AI apps, AI agents, business automation, data dashboards, cloud hosting, custom AI models and website care, explained simply.",
 };
 
 const iconMap: Record<string, React.ElementType> = {
@@ -53,22 +53,22 @@ export default function ServicesPage() {
   return (
     <>
       <CinematicScrollTracker />
-      <ClayAmbientShapes />
+      <SiteBackground />
       <Navbar />
 
       <main className="relative z-10 flex-1 w-full">
         {/* ================= SECTION 01: HERO ================= */}
         <section className="relative pt-12 pb-16 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 overflow-hidden w-full">
           <div className="w-full max-w-[1800px] mx-auto text-center space-y-5">
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#1e2530] dark:text-[#f3f4f6] tracking-tight leading-[1.05]">
-              Core{" "}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#1e2530] dark:text-[#f3f4f6] tracking-tight leading-[1.05]">
+              Our{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#eb4a2d] via-[#8b5cf6] to-[#3b82f6]">
-                Capabilities
+                services
               </span>
             </h1>
 
             <p className="text-base sm:text-xl text-[#4b5563] dark:text-[#9ca3af] max-w-2xl mx-auto font-medium">
-              8 specialized engineering disciplines built for speed, reliability, and enterprise scale.
+              Everything you need to build, run and grow with AI, from a first website to a full product.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
@@ -78,7 +78,7 @@ export default function ServicesPage() {
                   href={`#${s.id}`}
                   className="px-3.5 py-1.5 rounded-full bg-white dark:bg-[#151a24] border border-transparent dark:border-white/10 shadow-sm hover:shadow-md text-xs font-bold text-[#4b5563] dark:text-[#9ca3af] hover:text-[#eb4a2d] dark:hover:text-[#eb4a2d] transition-all"
                 >
-                  #{s.title}
+                  {s.shortTitle}
                 </a>
               ))}
             </div>
@@ -89,9 +89,9 @@ export default function ServicesPage() {
         <section className="relative py-14 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-t border-[#ede9e0] dark:border-white/10 w-full">
           <div className="w-full max-w-[1800px] mx-auto space-y-10 sm:space-y-12">
             <SectionHeader
-              title="Service"
-              highlightedWord="Specs"
-              subtitle="Technical deliverables and production guarantees."
+              title="What you"
+              highlightedWord="get"
+              subtitle="What each service includes, and who it's a good fit for."
             />
 
             <div className="space-y-8 sm:space-y-10">
@@ -158,15 +158,24 @@ export default function ServicesPage() {
                       <div className="lg:col-span-7 space-y-4 lg:pl-8 lg:border-l lg:border-[#ede9e0] dark:lg:border-white/10">
                         <span className="text-xs font-mono uppercase tracking-wider text-[#1e2530] dark:text-[#f3f4f6] font-black flex items-center gap-1.5">
                           <CheckCircle2 className="w-4 h-4 text-[#059669]" />
-                          Core Deliverables
+                          What you get
                         </span>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-[#4b5563] dark:text-[#cbd5e1] font-medium">
-                          {service.deliverables.slice(0, 4).map((item) => (
+                          {service.deliverables.map((item) => (
                             <div key={item} className="p-2.5 rounded-xl bg-white/70 dark:bg-[#151a24]/70 border border-[#ede9e0] dark:border-white/10 flex items-center gap-2">
                               <span className="w-1.5 h-1.5 rounded-full bg-[#eb4a2d] shrink-0" />
                               <span>{item}</span>
                             </div>
+                          ))}
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
+                          <span className="font-semibold text-[#6b7280] dark:text-[#9ca3af] mr-1">Good for:</span>
+                          {service.useCases.map((u) => (
+                            <span key={u} className="px-2.5 py-1 rounded-full bg-[#f6f3ee] dark:bg-white/5 text-[#1e2530] dark:text-[#f3f4f6] font-medium">
+                              {u}
+                            </span>
                           ))}
                         </div>
 
@@ -175,7 +184,7 @@ export default function ServicesPage() {
                             href={`/contact?service=${service.id}`}
                             className="clay-btn clay-btn-coral px-6 py-2.5 text-xs font-bold"
                           >
-                            <span>Scope Requirement</span>
+                            <span>Get a quote</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
                         </div>
@@ -189,121 +198,61 @@ export default function ServicesPage() {
         </section>
 
         {/* ================= SECTION 03: TECH STACK ================= */}
-        <section className="relative py-14 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-t border-[#ede9e0] dark:border-white/10 w-full">
+        <section id="stack" className="relative py-14 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-t border-[#ede9e0] dark:border-white/10 scroll-mt-24 w-full">
           <div className="w-full max-w-[1800px] mx-auto space-y-10">
             <SectionHeader
-              title="Tech"
-              highlightedWord="Stack"
-              subtitle="Modern AI models, resilient distributed databases, and event streams."
+              title="Tools we"
+              highlightedWord="use"
+              subtitle="We pick proven tools that fit your project and budget, never the other way round."
             />
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-              <div className="clay-card p-6 space-y-3">
-                <span className="text-xs font-mono uppercase text-[#eb4a2d] font-black flex items-center gap-1.5">
-                  <Cpu className="w-4 h-4" /> AI Models &amp; Swarms
-                </span>
-                <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] font-medium">
-                  Fine-tuning, RAG pipelines, and multi-agent systems.
-                </p>
-                <div className="flex flex-wrap gap-1.5 text-xs font-mono font-bold">
-                  {["Claude 3.7", "Gemini 2.5", "GPT-4.5", "Llama 3", "LangGraph", "vLLM", "Pinecone"].map((i) => (
-                    <span key={i} className="px-2.5 py-1 rounded-lg bg-[#ede9e0]/80 dark:bg-white/10 text-[#1e2530] dark:text-[#f3f4f6]">
-                      {i}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="clay-card p-6 space-y-3">
-                <span className="text-xs font-mono uppercase text-[#7c3aed] font-black flex items-center gap-1.5">
-                  <Cloud className="w-4 h-4" /> Cloud &amp; Infra
-                </span>
-                <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] font-medium">
-                  Kubernetes clusters, GitOps pipelines, and multi-cloud resilience.
-                </p>
-                <div className="flex flex-wrap gap-1.5 text-xs font-mono font-bold">
-                  {["AWS", "GCP", "Azure", "Kubernetes", "Terraform", "Docker", "ArgoCD", "Cloudflare"].map((i) => (
-                    <span key={i} className="px-2.5 py-1 rounded-lg bg-[#ede9e0]/80 dark:bg-white/10 text-[#1e2530] dark:text-[#f3f4f6]">
-                      {i}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="clay-card p-6 space-y-3">
-                <span className="text-xs font-mono uppercase text-[#059669] font-black flex items-center gap-1.5">
-                  <Database className="w-4 h-4" /> Data &amp; Automation
-                </span>
-                <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] font-medium">
-                  Streaming pipelines, data lakes, and automated workflows.
-                </p>
-                <div className="flex flex-wrap gap-1.5 text-xs font-mono font-bold">
-                  {["Snowflake", "BigQuery", "Kafka", "dbt", "ClickHouse", "n8n", "PostgreSQL"].map((i) => (
-                    <span key={i} className="px-2.5 py-1 rounded-lg bg-[#ede9e0]/80 dark:bg-white/10 text-[#1e2530] dark:text-[#f3f4f6]">
-                      {i}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <TechStackGrid />
           </div>
         </section>
 
-        {/* ================= SECTION 04: DELIVERY PODS ================= */}
+        {/* ================= SECTION 04: HOW WE WORK ================= */}
         <section className="relative py-14 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-t border-[#ede9e0] dark:border-white/10 w-full">
           <div className="w-full max-w-[1800px] mx-auto space-y-10">
             <SectionHeader
-              title="Delivery"
-              highlightedWord="Pods"
-              subtitle="Elite AI systems engineers integrated into your organization."
+              title="How we"
+              highlightedWord="work"
+              subtitle="Four simple steps from first call to launch, and beyond."
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {[
                 {
                   step: "01",
-                  title: "Audit",
-                  desc: "Identify latency bottlenecks, security gaps, and high-ROI AI vectors.",
+                  title: "Free call",
+                  desc: "A 30-minute chat to understand your goals. You get a clear plan and a fixed price.",
                 },
                 {
                   step: "02",
-                  title: "Sprint 0",
-                  desc: "Working prototype deployed in sandbox with verifiable benchmarks.",
+                  title: "First version",
+                  desc: "We build a working first version quickly so you can try it and give feedback.",
                 },
                 {
                   step: "03",
-                  title: "Cutover",
-                  desc: "Zero-downtime rolling deployment with active-active failover.",
+                  title: "Launch",
+                  desc: "We launch carefully, test everything, and make sure your team knows how it works.",
                 },
                 {
                   step: "04",
-                  title: "Operations",
-                  desc: "Continuous model regression testing and proactive 24/7 SRE support.",
+                  title: "Support",
+                  desc: "We stay on hand to fix issues, keep things fast and add new features as you grow.",
                 },
               ].map((phase) => (
                 <div key={phase.step} className="clay-card p-6 space-y-2">
-                  <span className="text-2xl font-black font-mono text-[#eb4a2d]">
+                  <span className="text-2xl font-black text-[#eb4a2d]">
                     {phase.step}
                   </span>
                   <h4 className="text-base font-black text-[#1e2530] dark:text-[#f3f4f6]">{phase.title}</h4>
-                  <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] leading-relaxed font-medium">{phase.desc}</p>
+                  <p className="text-sm text-[#4b5563] dark:text-[#9ca3af] leading-relaxed">{phase.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ================= SECTION 05: ESTIMATOR ================= */}
-        <section className="relative py-14 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-t border-[#ede9e0] dark:border-white/10 w-full">
-          <div className="w-full max-w-[1800px] mx-auto space-y-8">
-            <SectionHeader
-              title="Scope"
-              highlightedWord="Estimator"
-              subtitle="Calculate pod composition and delivery requirements."
-            />
-            <ProjectEstimator />
-          </div>
-        </section>
       </main>
 
       <Footer />

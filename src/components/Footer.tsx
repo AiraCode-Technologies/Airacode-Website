@@ -6,14 +6,9 @@ import Image from "next/image";
 import { 
   ArrowRight, 
   CheckCircle2, 
-  ShieldCheck, 
-  Lock, 
-  Zap,
-  Cpu,
-  GitBranch,
-  Terminal
 } from "lucide-react";
 import { servicesData } from "@/data/servicesData";
+import SocialIcons from "./SocialIcons";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -38,41 +33,23 @@ export default function Footer() {
           email: email,
           subscriberEmail: email,
           tracking_id: subRef,
-          _subject: `[AIRACODE DISPATCH] New Subscriber: ${email} [${subRef}]`,
+          _subject: `New newsletter subscriber: ${email}`,
           _replyto: email,
           _template: "table",
-          "Subscription Type": "AI Architecture & Engineering Dispatches",
+          "Subscription Type": "Newsletter",
           "Subscriber Email": email,
           "Tracking Reference": subRef,
           "Subscribed At": timestampStr,
-          _autoresponse: `============================================================
-              AIRACODE TECHNOLOGIES INC.
-          AI Architecture & Systems Dispatches
-============================================================
+          _autoresponse: `Hi there,
 
-SUBSCRIPTION CONFIRMED: ${email}
-STATUS: REGISTERED TO PRIVATE DISTRIBUTION MESH [REF: ${subRef}]
+Thanks for subscribing to AIRACODE updates.
 
-Welcome to the AIRACODE Architecture Dispatches. 
+About once a month we'll send you short, practical notes on using AI, automation and modern web tools in a real business. No spam, and you can unsubscribe any time by replying "unsubscribe".
 
-You have been successfully added to our private distribution list. You will receive our bi-weekly engineering briefings covering:
-- Autonomous Agentic AI Architectures (LangGraph, AutoGen, Multi-Agent Mesh)
-- Zero-Downtime Legacy Modernization & CDC Data Streaming
-- Enterprise Cloud Infrastructure & Multi-Cloud VPC Hardening
-- Production SRE Best Practices & Benchmark Reports
+If you have a project in mind, just reply to this email.
 
-Frequency: Bi-weekly, strictly zero-spam, purely technical engineering insights.
-
-Need assistance or have an enterprise project inquiry?
-Visit: https://airacode.online
-Direct Desk: contact@airacode.online
-
-Best regards,
-
-The Engineering Pod
-AIRACODE Technologies
-https://airacode.online
-============================================================`,
+The AIRACODE team
+https://airacode.online`,
         }),
       });
     } catch (_) {
@@ -109,20 +86,21 @@ https://airacode.online
             </Link>
 
             <p className="text-sm sm:text-base leading-relaxed text-[#4b5563] dark:text-[#9ca3af] max-w-lg font-medium">
-              We transform your vision into reality by digitalizing your business, modernizing legacy systems, and scaling your digital products with state-of-the-art technology solutions.
+              We build AI-powered websites, apps and automations, and upgrade old systems, so your business runs faster with less manual work.
             </p>
 
             {/* Newsletter Dispatch */}
             <div className="pt-2">
               <span className="block text-xs uppercase font-mono tracking-wider text-[#eb4a2d] mb-2 font-bold">
-                Subscribe to AI Architecture Dispatches
+                Get monthly AI tips for your business
               </span>
               <form onSubmit={handleSubscribe} className="flex gap-2 max-w-md">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="enterprise@domain.com"
+                  placeholder="you@company.com"
+                  aria-label="Email address"
                   required
                   className="flex-1 px-4 py-2.5 text-xs bg-white dark:bg-[#151a24] rounded-2xl text-[#1e2530] dark:text-[#f3f4f6] placeholder-[#9ca3af] border border-transparent dark:border-white/10 shadow-[inset_2px_2px_4px_rgba(30,37,48,0.06)] dark:shadow-none focus:outline-none focus:ring-2 focus:ring-[#eb4a2d]"
                 />
@@ -142,30 +120,18 @@ https://airacode.online
               </form>
               {subscribed && (
                 <div className="mt-2.5 p-2.5 rounded-xl bg-[#059669]/10 border border-[#059669]/25 flex items-center gap-2 text-xs font-mono font-bold text-[#059669] animate-in fade-in duration-300">
-                  <span className="w-2 h-2 rounded-full bg-[#059669] animate-ping shrink-0" />
-                  <span>SUBSCRIPTION CONFIRMED // Added to private distribution mesh</span>
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>You&apos;re subscribed. Check your inbox.</span>
                 </div>
               )}
             </div>
 
-            {/* Compliance Pills */}
-            <div className="flex flex-wrap gap-2 pt-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-white dark:bg-[#151a24] text-[#1e2530] dark:text-[#f3f4f6] border border-black/5 dark:border-white/10 shadow-sm">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#eb4a2d]" /> SOC 2 Type II
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-white dark:bg-[#151a24] text-[#1e2530] dark:text-[#f3f4f6] border border-black/5 dark:border-white/10 shadow-sm">
-                <Lock className="w-3.5 h-3.5 text-[#7c3aed]" /> HIPAA Compliant
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-white dark:bg-[#151a24] text-[#1e2530] dark:text-[#f3f4f6] border border-black/5 dark:border-white/10 shadow-sm">
-                <Zap className="w-3.5 h-3.5 text-[#059669]" /> ISO/IEC 27001
-              </span>
-            </div>
           </div>
 
           {/* Column 2: Core Services */}
           <div>
             <h3 className="text-xs font-mono uppercase tracking-widest text-[#eb4a2d] font-black mb-4">
-              Core Capabilities
+              Services
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm font-medium">
               {servicesData.slice(0, 4).map((service) => (
@@ -184,7 +150,7 @@ https://airacode.online
           {/* Column 3: Advanced Engineering */}
           <div>
             <h3 className="text-xs font-mono uppercase tracking-widest text-[#eb4a2d] font-black mb-4">
-              Advanced Engineering
+              More services
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm font-medium">
               {servicesData.slice(4, 8).map((service) => (
@@ -200,39 +166,33 @@ https://airacode.online
             </ul>
           </div>
 
-          {/* Column 4: Engineering Cadence */}
+          {/* Column 4: Company */}
           <div>
             <h3 className="text-xs font-mono uppercase tracking-widest text-[#eb4a2d] font-black mb-4">
-              Engineering Pods
+              Company
             </h3>
-            <ul className="space-y-2.5 text-xs sm:text-sm font-mono font-medium">
-              <li className="flex items-center justify-between text-[#1e2530] dark:text-[#f3f4f6]">
-                <span className="flex items-center gap-1.5"><Zap className="w-3.5 h-3.5 text-[#eb4a2d]" /> MVP Speed</span>
-                <span className="text-[10px] text-[#eb4a2d] font-bold">2–4 Wks</span>
-              </li>
-              <li className="flex items-center justify-between text-[#1e2530] dark:text-[#f3f4f6]">
-                <span className="flex items-center gap-1.5"><GitBranch className="w-3.5 h-3.5 text-[#8b5cf6]" /> IP Transfer</span>
-                <span className="text-[10px] text-[#8b5cf6] font-bold">100% Client</span>
-              </li>
-              <li className="flex items-center justify-between text-[#1e2530] dark:text-[#f3f4f6]">
-                <span className="flex items-center gap-1.5"><Cpu className="w-3.5 h-3.5 text-[#3b82f6]" /> Performance</span>
-                <span className="text-[10px] text-[#3b82f6] font-bold">98+ Score</span>
-              </li>
-              <li className="flex items-center justify-between text-[#1e2530] dark:text-[#f3f4f6]">
-                <span className="flex items-center gap-1.5"><Terminal className="w-3.5 h-3.5 text-[#059669]" /> Direct Access</span>
-                <span className="text-[10px] text-[#059669] font-bold">Slack / Git</span>
-              </li>
+            <ul className="space-y-2.5 text-xs sm:text-sm font-medium">
+              {[
+                { label: "Case Studies", href: "/case-studies" },
+                { label: "How we upgrade systems", href: "/solutions" },
+                { label: "Tools we use", href: "/services#stack" },
+                { label: "About", href: "/about" },
+                { label: "Contact", href: "/contact" },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="hover:text-[#eb4a2d] transition-colors block py-0.5">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
-
-            <div className="mt-5 p-4 rounded-2xl bg-white dark:bg-[#151a24] border border-black/5 dark:border-white/10 shadow-sm space-y-1">
-              <span className="text-xs font-mono font-bold text-[#059669] flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#059669] animate-ping" />
-                Direct Pods Active
-              </span>
-              <span className="text-[11px] text-[#6b7280] dark:text-[#9ca3af] block font-medium">
-                Continuous SRE &amp; Autonomous Agent telemetry monitoring.
-              </span>
-            </div>
+            <a
+              href="mailto:contact@airacode.online"
+              className="mt-5 inline-block text-sm font-bold text-[#1e2530] dark:text-[#f3f4f6] hover:text-[#eb4a2d]"
+            >
+              contact@airacode.online
+            </a>
+            <SocialIcons className="mt-4" />
           </div>
         </div>
 
@@ -249,7 +209,7 @@ https://airacode.online
             <Link href="/solutions" className="hover:text-[#eb4a2d] transition-colors">
               Solutions
             </Link>
-            <Link href="/work" className="hover:text-[#eb4a2d] transition-colors">
+            <Link href="/case-studies" className="hover:text-[#eb4a2d] transition-colors">
               Case Studies
             </Link>
             <Link href="/privacy" className="hover:text-[#eb4a2d] transition-colors">
@@ -261,9 +221,6 @@ https://airacode.online
             <Link href="/contact" className="hover:text-[#eb4a2d] transition-colors">
               Contact
             </Link>
-            <span className="px-2.5 py-0.5 rounded-full bg-[#10b981]/15 text-[#059669] font-bold text-[10px]">
-              Studio 100% OK
-            </span>
           </div>
         </div>
       </div>

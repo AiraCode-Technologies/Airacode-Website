@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { clientCaseStudies } from "@/data/servicesData";
 
 export const dynamic = "force-static";
 
@@ -25,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/work`,
+      url: `${baseUrl}/case-studies`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.85,
@@ -42,5 +43,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    ...clientCaseStudies.map((study) => ({
+      url: `${baseUrl}/case-studies/${study.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
   ];
 }
