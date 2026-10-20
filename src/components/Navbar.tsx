@@ -16,10 +16,10 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const navLinks = [
-    { name: "Overview", href: "/" },
+    { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
     { name: "Solutions", href: "/solutions" },
-    { name: "Case Studies", href: "/work" },
+    { name: "Case Studies", href: "/case-studies" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
@@ -46,7 +46,7 @@ export default function Navbar() {
                 AIRA<span className="text-[#eb4a2d]">CODE</span>
               </span>
               <span className="text-[10px] uppercase font-bold tracking-widest text-[#6b7280] dark:text-[#9ca3af] -mt-1 font-mono">
-                Autonomous Systems
+                AI Studio
               </span>
             </div>
           </Link>
@@ -54,7 +54,7 @@ export default function Navbar() {
           {/* Desktop Tactile Pills */}
           <nav className="hidden md:flex items-center gap-1.5 lg:gap-3">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
               return (
                 <Link
                   key={link.name}
@@ -78,7 +78,7 @@ export default function Navbar() {
               href="/contact"
               className="clay-btn clay-btn-coral px-6 py-2.5 text-xs sm:text-sm font-bold tracking-wide"
             >
-              <span>Initialize Project</span>
+              <span>Start a project</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -107,7 +107,7 @@ export default function Navbar() {
           <div className="md:hidden border-t border-[#ede9e0] dark:border-white/10 pt-4 pb-4 mt-2">
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href;
+                const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
                 return (
                   <Link
                     key={link.name}
@@ -130,7 +130,7 @@ export default function Navbar() {
                   onClick={() => setIsOpen(false)}
                   className="w-full clay-btn clay-btn-coral py-3 text-sm font-bold"
                 >
-                  <span>Initialize Project</span>
+                  <span>Start a project</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>

@@ -1,161 +1,168 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { 
-  Bot, 
-  Cpu, 
-  ShieldCheck, 
-  Layers, 
-  Zap, 
-  ArrowRight, 
-  CheckCircle2, 
+import {
+  Bot,
   Code2,
-  Clock,
-  Sparkles
+  Cloud,
+  Workflow,
+  ShieldCheck,
+  UserCheck,
+  CalendarClock,
+  MessagesSquare,
+  ArrowRight,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CinematicScrollTracker from "@/components/CinematicScrollTracker";
-import ClayAmbientShapes from "@/components/ClayAmbientShapes";
+import SiteBackground from "@/components/SiteBackground";
 import SectionHeader from "@/components/SectionHeader";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "About Us | AIRACODE",
   description:
-    "Learn about AIRACODE's mission, engineering principles, and agile software development studio.",
+    "AIRACODE is a team of four engineers who work as one: AI, full-stack, cloud and automation, together on every project.",
 };
 
+const team = [
+  {
+    role: "AI Engineer",
+    focus: "AI agents & custom models",
+    desc: "Designs the AI: which model to use, how it reads your data, and how it stays accurate and safe.",
+    icon: Bot,
+    color: "bg-[#eb4a2d]",
+  },
+  {
+    role: "Full-Stack Engineer",
+    focus: "Websites & apps",
+    desc: "Builds what your customers and team actually use: fast websites, web apps and dashboards.",
+    icon: Code2,
+    color: "bg-[#7c3aed]",
+  },
+  {
+    role: "Cloud Engineer",
+    focus: "Hosting, security & scale",
+    desc: "Keeps everything online, secure and affordable, and makes sure it grows with your traffic.",
+    icon: Cloud,
+    color: "bg-[#2563eb]",
+  },
+  {
+    role: "Automation Engineer",
+    focus: "Data & workflows",
+    desc: "Connects your tools and data so repetitive work runs on its own and numbers stay in one place.",
+    icon: Workflow,
+    color: "bg-[#059669]",
+  },
+];
+
+const howWeWork = [
+  {
+    title: "One team, one plan",
+    desc: "All four of us plan your project together on day one, so the AI, the app, the hosting and the automations fit together from the start.",
+  },
+  {
+    title: "You talk to the builders",
+    desc: "No account managers in between. You get a shared chat with the engineers doing the work.",
+  },
+  {
+    title: "Progress every two weeks",
+    desc: "You see working software every two weeks and can change direction early, not at the end.",
+  },
+  {
+    title: "Done in 1–4 months",
+    desc: "Most projects launch in 1–4 months, never more than 16 weeks, with support after launch.",
+  },
+];
+
+const principles = [
+  {
+    title: "You own everything",
+    desc: "All code, designs and documents are yours from day one.",
+    icon: Code2,
+  },
+  {
+    title: "Your data stays private",
+    desc: "We never use your data to train public AI, and AI can run inside your own cloud.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "People stay in charge",
+    desc: "Our AI agents ask a person before doing anything important.",
+    icon: UserCheck,
+  },
+  {
+    title: "Clear and honest",
+    desc: "Fixed prices after a free call, plain-English updates, and no surprises.",
+    icon: MessagesSquare,
+  },
+];
+
 export default function AboutPage() {
-  const principles = [
-    {
-      title: "100% IP Ownership",
-      desc: "You retain total intellectual property ownership. Repositories, neural weights, and infrastructure scripts are yours from day one.",
-      badge: "Ownership",
-      icon: Code2,
-      color: "bg-[#eb4a2d]",
-    },
-    {
-      title: "Private VPC AI",
-      desc: "Enterprise intelligence must remain sovereign. We deploy private VPC models with zero third-party data leakage.",
-      badge: "Sovereignty",
-      icon: Cpu,
-      color: "bg-[#7c3aed]",
-    },
-    {
-      title: "Deterministic Agents",
-      desc: "Autonomous AI agents must not hallucinate. We enforce schema validation sandboxes and human verification gates.",
-      badge: "Governance",
-      icon: Bot,
-      color: "bg-[#059669]",
-    },
-    {
-      title: "2-4 Week Velocity",
-      desc: "Velocity is the ultimate competitive advantage. From edge Next.js frontends to production MVPs, we ship in rapid 2-week sprints.",
-      badge: "Speed",
-      icon: Zap,
-      color: "bg-[#2563eb]",
-    },
-  ];
-
-  const startupCadence = [
-    {
-      label: "Remote Studio",
-      detail: "Global / Async",
-      sub: "Senior full-stack developers and AI systems architects.",
-    },
-    {
-      label: "Discovery Turnaround",
-      detail: "< 4 Hours",
-      sub: "Technical feasibility audit and statement of work under mutual NDA.",
-    },
-    {
-      label: "Sprint Cycles",
-      detail: "2-Week Sprints",
-      sub: "Bi-weekly staging demos, continuous testing, and direct Slack/GitHub access.",
-    },
-    {
-      label: "Launch Warranty",
-      detail: "30 Days Included",
-      sub: "Complimentary bug resolution and environment stabilization post-launch.",
-    },
-  ];
-
   return (
     <>
       <CinematicScrollTracker />
-      <ClayAmbientShapes />
+      <SiteBackground />
       <Navbar />
 
       <main className="relative z-10 flex-1 w-full">
-        {/* ================= SECTION 01: HERO WITH LARGE 3D LOGO ================= */}
-        <section className="relative pt-8 pb-16 sm:pt-12 sm:pb-20 lg:pt-16 lg:pb-24 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 overflow-hidden w-full">
+        {/* ================= SECTION 01: HERO ================= */}
+        <section className="relative pt-8 pb-16 sm:pt-12 sm:pb-20 lg:pt-16 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 w-full">
           <div className="w-full max-w-[1400px] mx-auto text-center space-y-6 sm:space-y-8">
-            
-            {/* LARGE TACTILE 3D BRAND LOGO DISPLAY - Completely seamless without any background, glow, or badge */}
-            <div className="relative mx-auto flex items-center justify-center pt-2">
-              <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 flex items-center justify-center transition-transform duration-500 hover:scale-105">
-                <Image
-                  src="/logo.png"
-                  alt="AIRACODE Master 3D Logo"
-                  width={384}
-                  height={384}
-                  className="w-full h-full object-contain"
-                  priority
-                />
-              </div>
+            <div className="relative mx-auto w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64">
+              <Image
+                src="/logo.png"
+                alt="AIRACODE logo"
+                width={256}
+                height={256}
+                className="w-full h-full object-contain"
+                priority
+              />
             </div>
 
-            {/* 2-Word Headline */}
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#1e2530] dark:text-[#f3f4f6] tracking-tight leading-[1.05] pt-2">
-              About{" "}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#1e2530] dark:text-[#f3f4f6] tracking-tight leading-[1.05]">
+              Four engineers.{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#eb4a2d] via-[#8b5cf6] to-[#3b82f6]">
-                Us
+                One team.
               </span>
             </h1>
 
-            {/* Concise Tagline */}
-            <p className="text-base sm:text-xl md:text-2xl text-[#4b5563] dark:text-[#9ca3af] max-w-2xl mx-auto font-medium leading-relaxed">
-              We digitalize your business, modernize legacy systems, and engineer autonomous AI products for scale.
+            <p className="text-base sm:text-xl md:text-2xl text-[#4b5563] dark:text-[#9ca3af] max-w-3xl mx-auto font-medium leading-relaxed">
+              AIRACODE is a small studio of four engineers who each bring a different skill, and work together on
+              every project, so your AI, app, hosting and automations come out as one system instead of four separate
+              pieces.
             </p>
 
-            {/* Action CTA */}
             <div className="pt-2 flex justify-center">
-              <Link
-                href="/contact"
-                className="clay-btn clay-btn-coral px-8 py-3.5 text-base font-black tracking-wide"
-              >
-                <span>Schedule Discovery</span>
+              <Link href="/contact" className="clay-btn clay-btn-coral px-8 py-3.5 text-base font-black tracking-wide">
+                <span>Work with us</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ================= SECTION 02: PRINCIPLES ================= */}
+        {/* ================= SECTION 02: THE TEAM ================= */}
         <section className="relative py-14 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-t border-[#ede9e0] dark:border-white/10 w-full">
-          <div className="w-full max-w-[1800px] mx-auto space-y-10">
+          <div className="w-full max-w-[1400px] mx-auto space-y-10">
             <SectionHeader
-              title="Core"
-              highlightedWord="Principles"
-              subtitle="The foundational philosophies guiding our engineering architecture."
+              title="Who we"
+              highlightedWord="are"
+              subtitle="Four specialists. Every project gets all four."
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-              {principles.map((p) => {
-                const Icon = p.icon;
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+              {team.map((member) => {
+                const Icon = member.icon;
                 return (
-                  <div key={p.title} className="clay-card p-6 sm:p-8 space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className={`w-11 h-11 rounded-2xl flex items-center justify-center text-white ${p.color} shadow-sm`}>
-                        <Icon className="w-5 h-5 stroke-[2.5]" />
-                      </div>
-                      <span className="text-[10px] font-mono font-bold uppercase px-2.5 py-1 rounded-full bg-[#ede9e0] dark:bg-[#1f2633] text-[#1e2530] dark:text-[#f3f4f6]">
-                        {p.badge}
-                      </span>
+                  <div key={member.role} className="clay-card p-6 sm:p-7 space-y-3">
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-white ${member.color} shadow-sm`}>
+                      <Icon className="w-6 h-6" />
                     </div>
-
-                    <h3 className="text-xl font-black text-[#1e2530] dark:text-[#f3f4f6]">{p.title}</h3>
-                    <p className="text-xs sm:text-sm text-[#4b5563] dark:text-[#9ca3af] leading-relaxed font-medium">{p.desc}</p>
+                    <div>
+                      <h3 className="text-lg font-black text-[#1e2530] dark:text-[#f3f4f6]">{member.role}</h3>
+                      <span className="text-xs font-semibold text-[#eb4a2d]">{member.focus}</span>
+                    </div>
+                    <p className="text-sm text-[#4b5563] dark:text-[#9ca3af] leading-relaxed">{member.desc}</p>
                   </div>
                 );
               })}
@@ -163,72 +170,72 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ================= SECTION 03: STARTUP CADENCE ================= */}
+        {/* ================= SECTION 03: HOW WE WORK TOGETHER ================= */}
         <section className="relative py-14 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-t border-[#ede9e0] dark:border-white/10 w-full">
-          <div className="w-full max-w-[1800px] mx-auto space-y-10">
+          <div className="w-full max-w-[1400px] mx-auto space-y-10">
             <SectionHeader
-              title="Startup"
-              highlightedWord="Cadence"
-              subtitle="How we collaborate and ship production systems with venture velocity."
+              title="How we work"
+              highlightedWord="together"
+              subtitle="Small team, short path from idea to launch."
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              {startupCadence.map((node) => (
-                <div key={node.label} className="clay-card p-6 space-y-2.5">
-                  <span className="text-xs font-mono font-bold text-[#eb4a2d] block uppercase">{node.label}</span>
-                  <h4 className="text-2xl font-black text-[#1e2530] dark:text-[#f3f4f6]">{node.detail}</h4>
-                  <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] font-medium pt-1 leading-relaxed">
-                    {node.sub}
-                  </p>
+              {howWeWork.map((item, i) => (
+                <div key={item.title} className="clay-card p-6 space-y-2">
+                  <span className="text-2xl font-black text-[#eb4a2d]">0{i + 1}</span>
+                  <h3 className="text-base font-black text-[#1e2530] dark:text-[#f3f4f6]">{item.title}</h3>
+                  <p className="text-sm text-[#4b5563] dark:text-[#9ca3af] leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ================= SECTION 04: PODS ================= */}
+        {/* ================= SECTION 04: WHAT WE BELIEVE ================= */}
         <section className="relative py-14 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-t border-[#ede9e0] dark:border-white/10 w-full">
-          <div className="w-full max-w-[1800px] mx-auto space-y-10">
-            <SectionHeader
-              title="Specialist"
-              highlightedWord="Pods"
-              subtitle="Senior engineering squads with distributed systems mastery."
-            />
+          <div className="w-full max-w-[1400px] mx-auto space-y-10">
+            <SectionHeader title="What we" highlightedWord="believe" />
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-              <div className="clay-card p-6 space-y-2.5">
-                <span className="text-xs font-mono uppercase text-[#eb4a2d] font-black block">
-                  AI Systems Pod
-                </span>
-                <h4 className="text-lg font-black text-[#1e2530] dark:text-[#f3f4f6]">Model Alignment &amp; Swarms</h4>
-                <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] leading-relaxed font-medium">
-                  LoRA fine-tuning, vLLM inference orchestration, LangGraph state machines, and consensus protocols.
-                </p>
-              </div>
-
-              <div className="clay-card p-6 space-y-2.5">
-                <span className="text-xs font-mono uppercase text-[#7c3aed] font-black block">
-                  Cloud &amp; DevOps Pod
-                </span>
-                <h4 className="text-lg font-black text-[#1e2530] dark:text-[#f3f4f6]">Kubernetes &amp; GitOps</h4>
-                <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] leading-relaxed font-medium">
-                  Multi-cloud AWS, GCP, and Azure containerized microservices and automated CI/CD pipelines.
-                </p>
-              </div>
-
-              <div className="clay-card p-6 space-y-2.5">
-                <span className="text-xs font-mono uppercase text-[#059669] font-black block">
-                  Modernization Pod
-                </span>
-                <h4 className="text-lg font-black text-[#1e2530] dark:text-[#f3f4f6]">Kafka &amp; Snowflake</h4>
-                <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] leading-relaxed font-medium">
-                  CDC replication, high-throughput lakehouse pipelines, and automated enterprise workflows.
-                </p>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+              {principles.map((p) => {
+                const Icon = p.icon;
+                return (
+                  <div key={p.title} className="clay-card p-6 sm:p-8 flex gap-4">
+                    <div className="w-11 h-11 rounded-2xl bg-[#eb4a2d]/10 text-[#eb4a2d] flex items-center justify-center shrink-0">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-black text-[#1e2530] dark:text-[#f3f4f6]">{p.title}</h3>
+                      <p className="text-sm text-[#4b5563] dark:text-[#9ca3af] leading-relaxed">{p.desc}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
 
+        {/* ================= SECTION 05: CTA ================= */}
+        <section className="relative py-14 sm:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-t border-[#ede9e0] dark:border-white/10 w-full">
+          <div className="clay-card p-8 sm:p-12 text-center space-y-4 max-w-3xl mx-auto">
+            <CalendarClock className="w-8 h-8 text-[#eb4a2d] mx-auto" />
+            <h2 className="text-3xl sm:text-5xl font-black text-[#1e2530] dark:text-[#f3f4f6]">
+              Meet the{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#eb4a2d] via-[#8b5cf6] to-[#3b82f6]">
+                team
+              </span>
+            </h2>
+            <p className="text-sm sm:text-base text-[#4b5563] dark:text-[#9ca3af] max-w-lg mx-auto font-medium">
+              Book a free 30-minute call with the engineers who would build your project.
+            </p>
+            <div className="pt-2">
+              <Link href="/contact" className="clay-btn clay-btn-coral px-8 py-3.5 text-base font-black">
+                <span>Book a free call</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

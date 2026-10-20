@@ -1,3 +1,5 @@
+import { socialLinks } from "@/data/socialLinks";
+
 export default function JsonLd() {
   const schema = {
     "@context": "https://schema.org",
@@ -11,17 +13,13 @@ export default function JsonLd() {
         "logo": "https://airacode.online/logo-icon.png",
         "image": "https://airacode.online/logo-icon.png",
         "description":
-          "AIRACODE is an agile software development startup and AI engineering studio. We digitalize businesses, modernize legacy systems, and build scalable digital products with state-of-the-art AI technology in 2–4 week sprints.",
+          "AIRACODE is an AI studio that builds AI-powered websites, apps and automations, and upgrades old business systems.",
         "email": "contact@airacode.online",
         "founder": {
           "@type": "Person",
           "name": "AIRACODE Founders"
         },
-        "sameAs": [
-          "https://github.com/AiraCode-Techonologies",
-          "https://x.com/airacode",
-          "https://linkedin.com/company/airacode"
-        ],
+        "sameAs": socialLinks.map((link) => link.href),
         "contactPoint": [
           {
             "@type": "ContactPoint",
@@ -39,7 +37,7 @@ export default function JsonLd() {
           "@id": "https://airacode.online/#organization"
         },
         "url": "https://airacode.online",
-        "priceRange": "25069",
+        "priceRange": "$$",
         "image": "https://airacode.online/logo-icon.png"
       },
       {

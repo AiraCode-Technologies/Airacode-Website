@@ -1,303 +1,232 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { 
-  Bot, 
-  Terminal, 
-  Cpu, 
-  GitMerge, 
-  CheckCircle2, 
-  Play, 
-  RefreshCw, 
-  Zap, 
-  ShieldAlert, 
-  Database,
-  Workflow,
-  Sparkles
+import {
+  Zap,
+  Mail,
+  Search,
+  Wrench,
+  UserCheck,
+  Send,
+  RefreshCw,
+  Check,
+  Minus,
+  Sparkles,
+  Cpu,
+  ArrowRightLeft,
 } from "lucide-react";
 
-export default function InteractiveAgentTerminal() {
-  const [activeTab, setActiveTab] = useState<"agentic" | "finetuning" | "modernization">("agentic");
-  const [isRunning, setIsRunning] = useState(false);
-  const [simStep, setSimStep] = useState(0);
+type Tab = "agent" | "custom" | "upgrade";
 
-  const agenticSteps = [
-    { title: "Planner Agent", desc: "Decomposing business goal into high-level DAG execution graph", icon: Bot, color: "bg-[#eb4a2d]" },
-    { title: "Vector Memory", desc: "Querying Pinecone & Snowflake for enterprise schemata and runtime logs", icon: Database, color: "bg-[#2563eb]" },
-    { title: "Tool Calling", desc: "Executing automated n8n webhook and calling cloud infrastructure API", icon: Workflow, color: "bg-[#7c3aed]" },
-    { title: "Safety Verifier", desc: "Validating schema compliance, deterministic tests & zero hallucination check", icon: ShieldAlert, color: "bg-[#d97706]" },
-    { title: "Edge Deployment", desc: "System auto-deployed to edge with zero downtime and verified audit log", icon: CheckCircle2, color: "bg-[#059669]" },
-  ];
+const TABS: { id: Tab; label: string }[] = [
+  { id: "agent", label: "AI agent at work" },
+  { id: "custom", label: "Custom vs off-the-shelf AI" },
+  { id: "upgrade", label: "Upgrading old systems" },
+];
+
+const agentSteps = [
+  { title: "Reads the request", desc: "Understands what the customer is asking for", icon: Mail, color: "bg-[#eb4a2d]" },
+  { title: "Looks things up", desc: "Finds the order in your store and the delivery status", icon: Search, color: "bg-[#2563eb]" },
+  { title: "Takes action", desc: "Upgrades shipping so it arrives on time", icon: Wrench, color: "bg-[#7c3aed]" },
+  { title: "Checks with a person", desc: "Asks your team before spending money", icon: UserCheck, color: "bg-[#d97706]" },
+  { title: "Replies", desc: "Sends the customer a clear, friendly update", icon: Send, color: "bg-[#059669]" },
+];
+
+const agentLog = [
+  { color: "text-[#eb4a2d]", text: "Customer email: “Where's order #4821? I need it by Friday.”" },
+  { color: "text-[#2563eb]", text: "Found order #4821 in Shopify. It's due Monday with standard shipping." },
+  { color: "text-[#7c3aed]", text: "Express shipping would arrive Thursday, for $12." },
+  { color: "text-[#d97706]", text: "Asked Priya (support lead) in Slack. She approved." },
+  { color: "text-[#059669]", text: "Upgraded shipping and emailed the customer. Done in 40 seconds." },
+];
+
+const comparison = [
+  { point: "Knows your products, policies and tone", custom: true, generic: false },
+  { point: "Your data stays inside your own cloud", custom: true, generic: false },
+  { point: "Lower running cost at high volume", custom: true, generic: false },
+  { point: "Quick to try with no setup", custom: false, generic: true },
+  { point: "Tested for accuracy on your real cases", custom: true, generic: false },
+];
+
+const upgradeSteps = [
+  { stage: "Step 1", title: "Copy", desc: "We copy your live data into a new system. The old one keeps running as normal." },
+  { stage: "Step 2", title: "Rebuild", desc: "We rebuild one part at a time, starting with the part that hurts most." },
+  { stage: "Step 3", title: "Add AI", desc: "We add AI where it saves the most time, like reading documents or answering questions." },
+  { stage: "Step 4", title: "Switch", desc: "We move users over gradually, with a one-click way back if anything looks wrong." },
+];
+
+export default function InteractiveAgentTerminal() {
+  const [activeTab, setActiveTab] = useState<Tab>("agent");
+  const [isRunning, setIsRunning] = useState(false);
+  const [simStep, setSimStep] = useState(-1);
 
   const runSimulation = () => {
-    setIsRunning(true);
     setSimStep(0);
+    setIsRunning(true);
   };
 
   useEffect(() => {
     if (!isRunning) return;
-
-    if (simStep < agenticSteps.length - 1) {
-      const timer = setTimeout(() => {
-        setSimStep((prev) => prev + 1);
-      }, 950);
+    if (simStep < agentSteps.length - 1) {
+      const timer = setTimeout(() => setSimStep((prev) => prev + 1), 1100);
       return () => clearTimeout(timer);
-    } else {
-      setIsRunning(false);
     }
-  }, [isRunning, simStep, agenticSteps.length]);
+    const done = setTimeout(() => setIsRunning(false), 1100);
+    return () => clearTimeout(done);
+  }, [isRunning, simStep]);
+
+  const finished = !isRunning && simStep === agentSteps.length - 1;
 
   return (
-    <div className="clay-card p-6 sm:p-10 lg:p-12 relative overflow-hidden w-full">
-      {/* Console Top Bar */}
-      <div className="flex flex-wrap items-center justify-between pb-6 border-b border-[#ede9e0] dark:border-white/10 gap-4">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="w-3.5 h-3.5 rounded-full bg-[#ff7259] shadow-[inset_1px_1px_2px_rgba(255,255,255,0.7),2px_2px_4px_rgba(0,0,0,0.15)]" />
-            <span className="w-3.5 h-3.5 rounded-full bg-[#fbbf24] shadow-[inset_1px_1px_2px_rgba(255,255,255,0.7),2px_2px_4px_rgba(0,0,0,0.15)]" />
-            <span className="w-3.5 h-3.5 rounded-full bg-[#10b981] shadow-[inset_1px_1px_2px_rgba(255,255,255,0.7),2px_2px_4px_rgba(0,0,0,0.15)]" />
-          </div>
-          <span className="text-xs sm:text-sm font-mono font-bold text-[#4b5563] dark:text-[#9ca3af] pl-2 border-l border-[#ede9e0] dark:border-white/10 flex items-center gap-2">
-            <Terminal className="w-4 h-4 text-[#eb4a2d]" />
-            airacode-kernel v4.8 [active]
-          </span>
-        </div>
-
-        {/* Tactile Tab Selector */}
-        <div className="flex items-center p-1.5 rounded-2xl bg-[#ede9e0] dark:bg-[#151a24] shadow-[inset_2px_2px_5px_rgba(30,37,48,0.08),inset_-2px_-2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.5)] text-xs font-bold">
+    <div className="clay-card p-6 sm:p-10 w-full">
+      {/* Tabs */}
+      <div className="flex flex-wrap gap-2 pb-6 border-b border-[#ede9e0] dark:border-white/10" role="tablist">
+        {TABS.map((tab) => (
           <button
-            onClick={() => setActiveTab("agentic")}
-            className={`px-4 py-2 rounded-xl transition-all cursor-pointer ${
-              activeTab === "agentic"
-                ? "bg-white dark:bg-[#1a2130] text-[#eb4a2d] shadow-[3px_4px_10px_rgba(30,37,48,0.08)] scale-105"
-                : "text-[#6b7280] dark:text-[#9ca3af] hover:text-[#1e2530] dark:hover:text-white"
+            key={tab.id}
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer ${
+              activeTab === tab.id
+                ? "bg-[#ede9e0] dark:bg-[#1a2130] text-[#eb4a2d] shadow-[inset_2px_2px_4px_rgba(30,37,48,0.1)]"
+                : "text-[#4b5563] dark:text-[#9ca3af] hover:text-[#1e2530] dark:hover:text-white hover:bg-[#f6f3ee] dark:hover:bg-white/5"
             }`}
           >
-            Autonomous Swarm
+            {tab.label}
           </button>
-          <button
-            onClick={() => setActiveTab("finetuning")}
-            className={`px-4 py-2 rounded-xl transition-all cursor-pointer ${
-              activeTab === "finetuning"
-                ? "bg-white dark:bg-[#1a2130] text-[#7c3aed] shadow-[3px_4px_10px_rgba(30,37,48,0.08)] scale-105"
-                : "text-[#6b7280] dark:text-[#9ca3af] hover:text-[#1e2530] dark:hover:text-white"
-            }`}
-          >
-            Model Quantization
-          </button>
-          <button
-            onClick={() => setActiveTab("modernization")}
-            className={`px-4 py-2 rounded-xl transition-all cursor-pointer ${
-              activeTab === "modernization"
-                ? "bg-white dark:bg-[#1a2130] text-[#2563eb] shadow-[3px_4px_10px_rgba(30,37,48,0.08)] scale-105"
-                : "text-[#6b7280] dark:text-[#9ca3af] hover:text-[#1e2530] dark:hover:text-white"
-            }`}
-          >
-            Modernization Protocol
-          </button>
-        </div>
+        ))}
       </div>
 
-      {/* Tab 1: Autonomous Swarm Visualizer */}
-      {activeTab === "agentic" && (
+      {activeTab === "agent" && (
         <div className="pt-6 sm:pt-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h3 className="text-xl sm:text-2xl font-black text-[#1e2530] dark:text-[#f3f4f6] flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-[#eb4a2d]" />
-                Multi-Agent Workflow Orchestration Simulation
+                A customer asks about a late order
               </h3>
-              <p className="text-xs sm:text-sm text-[#6b7280] dark:text-[#9ca3af] mt-1 font-medium">
-                Watch autonomous agents collaborate in stop-motion style: decompose logic, query vector memory, call tools, and verify output.
+              <p className="text-sm text-[#6b7280] dark:text-[#9ca3af] mt-1">
+                Watch an AI agent handle it from start to finish.
               </p>
             </div>
             <button
               onClick={runSimulation}
               disabled={isRunning}
-              className="clay-btn clay-btn-coral px-6 py-3 text-xs sm:text-sm font-bold tracking-wide"
+              className="clay-btn clay-btn-coral px-6 py-3 text-sm font-bold disabled:opacity-70"
             >
-              {isRunning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
-              {isRunning ? "Swarm Executing..." : "Trigger Autonomous Swarm"}
+              {isRunning ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
+              {isRunning ? "Agent working..." : finished ? "Run it again" : "See it in action"}
             </button>
           </div>
 
-          {/* Stepper Grid with Tactile Nodes */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
-            {agenticSteps.map((step, idx) => {
+          <ol className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+            {agentSteps.map((step, idx) => {
               const Icon = step.icon;
               const isCurrent = isRunning && simStep === idx;
-              const isDone = (!isRunning && simStep === 4) || simStep > idx;
-
+              const isDone = simStep > idx || finished;
               return (
-                <div
+                <li
                   key={step.title}
-                  className={`p-5 rounded-3xl transition-all duration-300 flex flex-col justify-between ${
+                  className={`p-4 rounded-2xl border transition-colors duration-300 ${
                     isCurrent
-                      ? "bg-white dark:bg-[#151a24] shadow-[12px_16px_30px_rgba(235,74,45,0.18)] scale-105 border-2 border-[#eb4a2d]"
+                      ? "bg-white dark:bg-[#151a24] border-[#eb4a2d] ring-1 ring-[#eb4a2d]"
                       : isDone
-                      ? "bg-white dark:bg-[#151a24] shadow-[6px_8px_18px_rgba(5,150,105,0.12)] border border-[#10b981]/30"
-                      : "bg-[#ede9e0]/60 dark:bg-white/5 shadow-[inset_2px_2px_4px_rgba(30,37,48,0.06)] opacity-70"
+                      ? "bg-white dark:bg-[#151a24] border-[#10b981]/40"
+                      : "bg-[#f6f3ee] dark:bg-white/5 border-transparent"
                   }`}
                 >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <div
-                        className={`w-10 h-10 rounded-2xl flex items-center justify-center text-white ${step.color} shadow-sm`}
-                        style={{
-                          boxShadow: "inset 2px 2px 4px rgba(255, 255, 255, 0.4), inset -2px -2px 4px rgba(0, 0, 0, 0.2)",
-                        }}
-                      >
-                        <Icon className="w-5 h-5 stroke-[2.5]" />
-                      </div>
-                      <span className="text-xs font-mono font-bold text-[#6b7280] dark:text-[#9ca3af]">0{idx + 1}</span>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-white ${step.color}`}>
+                      <Icon className="w-4.5 h-4.5" />
                     </div>
-                    <h4 className="text-sm sm:text-base font-black text-[#1e2530] dark:text-[#f3f4f6] mb-1">{step.title}</h4>
-                    <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] leading-snug">{step.desc}</p>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-[#ede9e0] dark:border-white/10 flex items-center justify-between text-xs font-mono font-bold">
-                    <span className="text-[#9ca3af]">State</span>
-                    {isCurrent ? (
-                      <span className="text-[#eb4a2d] animate-pulse">Running...</span>
-                    ) : isDone ? (
-                      <span className="text-[#059669]">✓ Completed</span>
+                    {isDone ? (
+                      <Check className="w-4 h-4 text-[#059669]" />
                     ) : (
-                      <span className="text-[#9ca3af]">Queued</span>
+                      <span className="text-xs font-semibold text-[#9ca3af]">{idx + 1}</span>
                     )}
                   </div>
-                </div>
+                  <h4 className="text-sm font-bold text-[#1e2530] dark:text-[#f3f4f6]">{step.title}</h4>
+                  <p className="text-xs text-[#4b5563] dark:text-[#9ca3af] leading-snug mt-1">{step.desc}</p>
+                </li>
               );
             })}
-          </div>
+          </ol>
 
-          {/* Inset Console Stream */}
-          <div className="p-5 sm:p-6 rounded-3xl bg-[#ede9e0] dark:bg-[#0f131a] shadow-[inset_4px_5px_10px_rgba(30,37,48,0.08),inset_-3px_-3px_8px_rgba(255,255,255,0.9)] dark:shadow-[inset_3px_3px_8px_rgba(0,0,0,0.6)] font-mono text-xs sm:text-sm space-y-2 text-[#1e2530] dark:text-[#f3f4f6]">
-            <div className="text-[#6b7280] dark:text-[#9ca3af] font-bold flex items-center justify-between text-[11px] sm:text-xs pb-2 border-b border-[#d6cebe] dark:border-white/10">
-              <span>TERMINAL STREAM // LIVE DISPATCH TRACE</span>
-              <span className="text-[#059669]">EXECUTION: 42ms | DETERMINISTIC VERIFICATION: PASS</span>
-            </div>
-            <p className="text-[#eb4a2d] font-bold">
-              [planner-01] &gt; Ingested goal: &quot;Modernize legacy transactional service and deploy AI risk gatekeeper&quot;
-            </p>
-            <p className="text-[#2563eb]">
-              [rag-memory] &gt; Retrieved 12 schema definitions from PostgreSQL vector store; similarity score 0.941
-            </p>
-            <p className="text-[#7c3aed]">
-              [tool-runner] &gt; Dispatching n8n webhook: executing migration script in isolated staging container
-            </p>
-            <p className="text-[#059669] font-bold">
-              [audit-gate] &gt; Regression tests 100% passed. End-to-end response verified in 380ms. Ready for production.
-            </p>
+          <div className="p-5 rounded-2xl bg-[#f6f3ee] dark:bg-[#0f131a] border border-[#ede9e0] dark:border-white/10 text-sm space-y-2 min-h-[11rem]" aria-live="polite">
+            <span className="block text-xs font-semibold text-[#6b7280] dark:text-[#9ca3af] pb-2 border-b border-[#ede9e0] dark:border-white/10">
+              What the agent did
+            </span>
+            {simStep < 0 && <p className="text-[#9ca3af]">Click &ldquo;See it in action&rdquo; to start.</p>}
+            {agentLog.slice(0, simStep + 1).map((line) => (
+              <p key={line.text} className={`${line.color} font-medium`}>
+                {line.text}
+              </p>
+            ))}
           </div>
         </div>
       )}
 
-      {/* Tab 2: Model Quantization */}
-      {activeTab === "finetuning" && (
+      {activeTab === "custom" && (
         <div className="pt-6 sm:pt-8 space-y-6">
           <div>
             <h3 className="text-xl sm:text-2xl font-black text-[#1e2530] dark:text-[#f3f4f6] flex items-center gap-2">
               <Cpu className="w-5 h-5 text-[#7c3aed]" />
-              AIRACODE Fine-Tuning &amp; Quantization vs Base Cloud Models
+              When does custom AI make sense?
             </h3>
-            <p className="text-xs sm:text-sm text-[#6b7280] dark:text-[#9ca3af] mt-1 font-medium">
-              Verifiable empirical benchmark: standard generic cloud APIs vs AIRACODE fine-tuned 4-bit SLMs.
+            <p className="text-sm text-[#6b7280] dark:text-[#9ca3af] mt-1">
+              Off-the-shelf AI tools are a great start. Custom AI pays off once accuracy, privacy or cost really matter.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 sm:p-8 rounded-3xl bg-[#ede9e0]/80 dark:bg-[#151a24] shadow-[inset_3px_3px_8px_rgba(30,37,48,0.06)] dark:shadow-[inset_2px_2px_6px_rgba(0,0,0,0.5)] space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="px-3 py-1 rounded-full bg-white dark:bg-[#1a2130] text-xs font-mono font-bold text-[#6b7280] dark:text-[#cbd5e1] shadow-sm">
-                  Standard Frontier Cloud API
-                </span>
-                <span className="text-xs font-bold text-[#c0392b]">High Latency / High Cost</span>
-              </div>
-              <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#4b5563] dark:text-[#9ca3af]">
-                <li className="flex justify-between border-b border-[#d6cebe] dark:border-white/10 pb-2">
-                  <span>Time-to-First-Token:</span>
-                  <span className="font-bold text-[#c0392b]">920ms</span>
-                </li>
-                <li className="flex justify-between border-b border-[#d6cebe] dark:border-white/10 pb-2">
-                  <span>Domain Reasoning Accuracy:</span>
-                  <span className="font-bold text-[#1e2530] dark:text-[#f3f4f6]">76.4%</span>
-                </li>
-                <li className="flex justify-between border-b border-[#d6cebe] dark:border-white/10 pb-2">
-                  <span>Hosting Cost (1M Tokens):</span>
-                  <span className="font-bold text-[#c0392b]">$15.00 / 1M</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Data Isolation &amp; Privacy:</span>
-                  <span className="font-bold text-[#d97706]">Shared Multi-Tenant</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#151a24] shadow-[12px_16px_32px_rgba(124,58,237,0.12),inset_2px_2px_5px_rgba(255,255,255,0.9)] dark:shadow-[12px_16px_32px_rgba(124,58,237,0.15)] border-2 border-[#7c3aed]/30 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="px-3 py-1 rounded-full bg-[#7c3aed] text-xs font-mono font-bold text-white shadow-sm">
-                  AIRACODE Domain SLM (LoRA + 4-bit AWQ)
-                </span>
-                <span className="text-xs font-bold text-[#059669]">Dedicated &amp; Ultra-Fast</span>
-              </div>
-              <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#1e2530] dark:text-[#f3f4f6]">
-                <li className="flex justify-between border-b border-[#ede9e0] dark:border-white/10 pb-2">
-                  <span className="text-[#6b7280] dark:text-[#9ca3af]">Time-to-First-Token:</span>
-                  <span className="font-bold text-[#059669]">110ms (-88% Latency)</span>
-                </li>
-                <li className="flex justify-between border-b border-[#ede9e0] dark:border-white/10 pb-2">
-                  <span className="text-[#6b7280] dark:text-[#9ca3af]">Domain Reasoning Accuracy:</span>
-                  <span className="font-bold text-[#059669]">98.6% (+22% Lift)</span>
-                </li>
-                <li className="flex justify-between border-b border-[#ede9e0] dark:border-white/10 pb-2">
-                  <span className="text-[#6b7280] dark:text-[#9ca3af]">Hosting Cost (1M Tokens):</span>
-                  <span className="font-bold text-[#059669]">$1.80 / 1M (-88% Cost)</span>
-                </li>
-                <li className="flex justify-between">
-                  <span className="text-[#6b7280] dark:text-[#9ca3af]">Data Isolation &amp; Privacy:</span>
-                  <span className="font-bold text-[#059669]">Dedicated Private VPC</span>
-                </li>
-              </ul>
-            </div>
+          <div className="overflow-hidden rounded-2xl border border-[#ede9e0] dark:border-white/10">
+            <table className="w-full text-sm">
+              <thead className="bg-[#f6f3ee] dark:bg-white/5 text-left">
+                <tr>
+                  <th className="py-3 px-4 font-semibold text-[#4b5563] dark:text-[#9ca3af]"></th>
+                  <th className="py-3 px-4 font-semibold text-[#7c3aed] text-center">Custom AI</th>
+                  <th className="py-3 px-4 font-semibold text-[#6b7280] dark:text-[#9ca3af] text-center">Off-the-shelf</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#ede9e0] dark:divide-white/10">
+                {comparison.map((row) => (
+                  <tr key={row.point}>
+                    <td className="py-3 px-4 text-[#1e2530] dark:text-[#f3f4f6] font-medium">{row.point}</td>
+                    <td className="py-3 px-4 text-center">
+                      {row.custom ? <Check className="w-4 h-4 text-[#059669] inline" /> : <Minus className="w-4 h-4 text-[#9ca3af] inline" />}
+                    </td>
+                    <td className="py-3 px-4 text-center">
+                      {row.generic ? <Check className="w-4 h-4 text-[#059669] inline" /> : <Minus className="w-4 h-4 text-[#9ca3af] inline" />}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
 
-      {/* Tab 3: Modernization Protocol */}
-      {activeTab === "modernization" && (
+      {activeTab === "upgrade" && (
         <div className="pt-6 sm:pt-8 space-y-6">
           <div>
             <h3 className="text-xl sm:text-2xl font-black text-[#1e2530] dark:text-[#f3f4f6] flex items-center gap-2">
-              <GitMerge className="w-5 h-5 text-[#2563eb]" />
-              Legacy-to-Cloud Native Event-Driven Modernization
+              <ArrowRightLeft className="w-5 h-5 text-[#2563eb]" />
+              Upgrading an old system without switching it off
             </h3>
-            <p className="text-xs sm:text-sm text-[#6b7280] dark:text-[#9ca3af] mt-1 font-medium">
-              How AIRACODE modernizes legacy monoliths without business disruption or downtime.
+            <p className="text-sm text-[#6b7280] dark:text-[#9ca3af] mt-1">
+              Your business keeps running the whole time. No big-bang launch day.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 sm:gap-6">
-            <div className="p-6 rounded-3xl bg-[#f6f3ee] dark:bg-[#151a24] shadow-sm text-center">
-              <span className="text-[10px] font-mono text-[#6b7280] dark:text-[#9ca3af] uppercase font-bold block mb-1">Stage 01</span>
-              <h5 className="text-sm sm:text-base font-black text-[#1e2530] dark:text-[#f3f4f6] mb-2">Legacy Monolith</h5>
-              <p className="text-xs text-[#4b5563] dark:text-[#9ca3af]">Non-invasive CDC taps capture live writes</p>
-            </div>
-            <div className="p-6 rounded-3xl bg-white dark:bg-[#151a24] shadow-sm border border-[#2563eb]/20 text-center">
-              <span className="text-[10px] font-mono text-[#2563eb] uppercase font-bold block mb-1">Stage 02</span>
-              <h5 className="text-sm sm:text-base font-black text-[#2563eb] mb-2">Kafka Event Mesh</h5>
-              <p className="text-xs text-[#4b5563] dark:text-[#9ca3af]">Real-time asynchronous event streaming</p>
-            </div>
-            <div className="p-6 rounded-3xl bg-white dark:bg-[#151a24] shadow-sm border border-[#7c3aed]/20 text-center">
-              <span className="text-[10px] font-mono text-[#7c3aed] uppercase font-bold block mb-1">Stage 03</span>
-              <h5 className="text-sm sm:text-base font-black text-[#7c3aed] mb-2">Microservices &amp; AI</h5>
-              <p className="text-xs text-[#4b5563] dark:text-[#9ca3af]">Containerized auto-scaling pods + RAG</p>
-            </div>
-            <div className="p-6 rounded-3xl bg-white dark:bg-[#151a24] shadow-sm border border-[#059669]/20 text-center">
-              <span className="text-[10px] font-mono text-[#059669] uppercase font-bold block mb-1">Stage 04</span>
-              <h5 className="text-sm sm:text-base font-black text-[#059669] mb-2">Edge Experience</h5>
-              <p className="text-xs text-[#4b5563] dark:text-[#9ca3af]">Sub-50ms globally distributed frontend</p>
-            </div>
-          </div>
+          <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {upgradeSteps.map((step) => (
+              <li key={step.stage} className="p-5 rounded-2xl bg-[#f6f3ee] dark:bg-white/5 border border-[#ede9e0] dark:border-white/10">
+                <span className="text-xs font-semibold text-[#2563eb]">{step.stage}</span>
+                <h4 className="text-base font-bold text-[#1e2530] dark:text-[#f3f4f6] mt-1">{step.title}</h4>
+                <p className="text-sm text-[#4b5563] dark:text-[#9ca3af] mt-1.5 leading-relaxed">{step.desc}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       )}
     </div>

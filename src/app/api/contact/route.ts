@@ -1,10 +1,19 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+const escapeHtml = (value: unknown) =>
+  String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, company, serviceNeeded, budget, message, botField } = body;
+    const { botField, ndaRequired } = body;
+    const name = escapeHtml(body.name);
+    const email = escapeHtml(body.email);
+    const company = escapeHtml(body.company);
+    const serviceNeeded = escapeHtml(body.serviceNeeded);
+    const budget = escapeHtml(body.budget);
+    const message = escapeHtml(body.message);
 
     // Honeypot anti-spam check
     if (botField) {
@@ -14,7 +23,7 @@ export async function POST(request: Request) {
     // Validation
     if (!name || !email || !message) {
       return NextResponse.json(
-        { success: false, error: "Please provide your name, valid email, and project overview." },
+        { success: false, error: "Please add your name, email and a short message." },
         { status: 400 }
       );
     }
@@ -37,13 +46,13 @@ export async function POST(request: Request) {
       const notificationHtml = `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #faf8f5; border-radius: 16px; border: 1px solid #ede9e0;">
           <div style="border-bottom: 2px solid #eb4a2d; padding-bottom: 12px; margin-bottom: 20px;">
-            <h2 style="color: #1e2530; margin: 0; font-size: 22px;">New Project Inquiry // AIRACODE</h2>
+            <h2 style="color: #1e2530; margin: 0; font-size: 22px;">New enquiry</h2>
             <p style="color: #6b7280; margin: 4px 0 0 0; font-size: 13px; font-family: monospace;">ID: ${leadId} | ${timestamp}</p>
           </div>
 
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 14px;">
             <tr>
-              <td style="padding: 8px 0; color: #6b7280; width: 140px; font-weight: bold;">Lead Name:</td>
+              <td style="padding: 8px 0; color: #6b7280; width: 140px; font-weight: bold;">Name:</td>
               <td style="padding: 8px 0; color: #1e2530; font-weight: 600;">${name}</td>
             </tr>
             <tr>
@@ -62,76 +71,55 @@ export async function POST(request: Request) {
               <td style="padding: 8px 0; color: #6b7280; font-weight: bold;">Budget Range:</td>
               <td style="padding: 8px 0; color: #059669; font-weight: 600;">${budget || "Undisclosed"}</td>
             </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #6b7280; font-weight: bold;">NDA requested:</td>
+              <td style="padding: 8px 0; color: #1e2530;">${ndaRequired ? "Yes" : "No"}</td>
+            </tr>
           </table>
 
           <div style="background: #ffffff; padding: 16px; border-radius: 12px; border: 1px solid #ede9e0; margin-bottom: 20px;">
-            <h4 style="margin: 0 0 8px 0; color: #1e2530; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Project Brief:</h4>
+            <h4 style="margin: 0 0 8px 0; color: #1e2530; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">Message:</h4>
             <p style="margin: 0; color: #374151; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${message}</p>
           </div>
 
           <div style="font-size: 12px; color: #9ca3af; text-align: center; border-top: 1px solid #ede9e0; padding-top: 16px;">
-            AIRACODE Technologies // Autonomous Scale &amp; Modern Systems
+            Sent from the airacode.online contact form
           </div>
         </div>
       `;
 
       const userConfirmationHtml = `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #faf8f5; border-radius: 16px; border: 1px solid #ede9e0; color: #1e2530;">
-          <div style="border-bottom: 2px solid #eb4a2d; padding-bottom: 14px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
-            <div>
-              <h2 style="color: #1e2530; margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">AIRA<span style="color: #eb4a2d;">CODE</span></h2>
-              <p style="color: #6b7280; margin: 3px 0 0 0; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-family: monospace;">Autonomous Systems &amp; AI Engineering Studio</p>
-            </div>
-            <div style="text-align: right;">
-              <span style="display: inline-block; padding: 4px 10px; background: #ede9e0; border-radius: 20px; font-size: 11px; font-family: monospace; font-weight: 700; color: #eb4a2d;">${leadId}</span>
-            </div>
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; padding: 28px; background: #faf8f5; border-radius: 16px; border: 1px solid #ede9e0; color: #1e2530;">
+          <h2 style="margin: 0 0 4px 0; font-size: 22px; font-weight: 800;">AIRA<span style="color: #eb4a2d;">CODE</span></h2>
+          <p style="margin: 0 0 24px 0; font-size: 13px; color: #6b7280;">AI products, websites &amp; automation</p>
+
+          <p style="font-size: 15px; line-height: 1.6; margin: 0 0 12px 0;">Hi ${name.split(" ")[0] || "there"},</p>
+          <p style="font-size: 15px; line-height: 1.6; margin: 0 0 20px 0; color: #374151;">
+            Thanks for getting in touch. We've received your message about <strong>${serviceNeeded || "your project"}</strong>.
+          </p>
+
+          <div style="background: #ffffff; border: 1px solid #ede9e0; border-radius: 12px; padding: 16px 18px; margin-bottom: 20px;">
+            <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: 700;">What happens next</p>
+            <ol style="margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.7; color: #374151;">
+              <li>A developer reads your message within one business day.</li>
+              <li>We reply with a few questions, or suggest a time for a free 30-minute call.</li>
+              <li>You get a clear plan and a fixed price. No obligation.</li>
+            </ol>
           </div>
 
-          <div style="margin-bottom: 24px;">
-            <h3 style="font-size: 18px; margin: 0 0 8px 0; color: #1e2530;">Inquiry Confirmed, ${name}</h3>
-            <p style="font-size: 14px; line-height: 1.6; color: #4b5563; margin: 0;">
-              Thank you for reaching out to AIRACODE. We have received your project inquiry and parameters. Our Lead Systems Architect will review your specifications and follow up within <strong>4 business hours</strong> under mutual NDA.
-            </p>
+          <div style="font-size: 13px; color: #6b7280; margin-bottom: 20px;">
+            <p style="margin: 0 0 6px 0; font-weight: 600; color: #1e2530;">Your message</p>
+            <p style="margin: 0; white-space: pre-wrap; line-height: 1.5;">${message}</p>
           </div>
 
-          <div style="background: #ffffff; border: 1px solid #ede9e0; border-radius: 12px; padding: 16px; margin-bottom: 20px;">
-            <h4 style="margin: 0 0 12px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: #6b7280;">Your Submission Summary:</h4>
-            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-              <tr>
-                <td style="padding: 6px 0; color: #6b7280; width: 130px; font-weight: 600;">Service Track:</td>
-                <td style="padding: 6px 0; color: #1e2530; font-weight: 600;">${serviceNeeded || "General Scoping"}</td>
-              </tr>
-              <tr>
-                <td style="padding: 6px 0; color: #6b7280; width: 130px; font-weight: 600;">Organization:</td>
-                <td style="padding: 6px 0; color: #1e2530;">${company || "Individual / Not specified"}</td>
-              </tr>
-              <tr>
-                <td style="padding: 6px 0; color: #6b7280; width: 130px; font-weight: 600;">Budget Allocation:</td>
-                <td style="padding: 6px 0; color: #059669; font-weight: 600;">${budget || "Undisclosed"}</td>
-              </tr>
-              <tr>
-                <td style="padding: 6px 0; color: #6b7280; width: 130px; font-weight: 600;">Received At:</td>
-                <td style="padding: 6px 0; color: #1e2530; font-family: monospace; font-size: 12px;">${timestamp}</td>
-              </tr>
-            </table>
+          <p style="font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; color: #374151;">
+            Want to add files, links or screenshots? Just reply to this email.
+          </p>
+          <p style="font-size: 14px; margin: 0; color: #374151;">Talk soon,<br/>The AIRACODE team</p>
 
-            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #ede9e0;">
-              <span style="display: block; font-size: 11px; text-transform: uppercase; color: #6b7280; font-weight: 600; margin-bottom: 4px;">Project Scope:</span>
-              <p style="margin: 0; font-size: 13px; color: #374151; line-height: 1.5; white-space: pre-wrap;">${message}</p>
-            </div>
-          </div>
-
-          <div style="background: #f6f3ee; border-radius: 12px; padding: 14px 16px; margin-bottom: 24px; font-size: 13px; color: #4b5563; line-height: 1.5;">
-            <strong style="color: #1e2530; display: block; margin-bottom: 4px;">What happens next?</strong>
-            1. <strong>Architectural Review:</strong> We analyze your technology stack and target sprint milestones.<br/>
-            2. <strong>Mutual NDA:</strong> If required, we execute standard bilateral NDA protection.<br/>
-            3. <strong>Sprint Roadmap:</strong> We schedule a 30-minute scoping session to present solution architecture and sprint deliverables.
-          </div>
-
-          <div style="border-top: 1px solid #ede9e0; padding-top: 16px; text-align: center; font-size: 12px; color: #9ca3af;">
-            <p style="margin: 0 0 4px 0;">Need immediate priority assistance? Reply directly to this email or write to <a href="mailto:contact@airacode.online" style="color: #eb4a2d; text-decoration: none; font-weight: 600;">contact@airacode.online</a></p>
-            <p style="margin: 0; font-family: monospace; font-size: 11px;">AIRACODE Technologies // <a href="https://airacode.online" style="color: #6b7280; text-decoration: none;">airacode.online</a></p>
-          </div>
+          <p style="margin: 24px 0 0 0; padding-top: 16px; border-top: 1px solid #ede9e0; font-size: 12px; color: #9ca3af; text-align: center;">
+            <a href="mailto:contact@airacode.online" style="color: #eb4a2d; text-decoration: none;">contact@airacode.online</a> · <a href="https://airacode.online" style="color: #6b7280; text-decoration: none;">airacode.online</a>
+          </p>
         </div>
       `;
 
@@ -141,7 +129,7 @@ export async function POST(request: Request) {
           from: fromEmail,
           to: teamRecipients,
           replyTo: email,
-          subject: `[AIRACODE INQUIRY] ${leadId} — ${serviceNeeded || "General Scoping"} (${name} / ${company || "Individual"})`,
+          subject: `New enquiry: ${body.serviceNeeded || "General"} (${body.name}${body.company ? `, ${body.company}` : ""})`,
           html: notificationHtml,
         });
 
@@ -151,7 +139,7 @@ export async function POST(request: Request) {
             from: fallbackFrom,
             to: teamRecipients,
             replyTo: email,
-            subject: `[AIRACODE INQUIRY] ${leadId} — ${serviceNeeded || "General Scoping"} (${name} / ${company || "Individual"})`,
+            subject: `New enquiry: ${body.serviceNeeded || "General"} (${body.name}${body.company ? `, ${body.company}` : ""})`,
             html: notificationHtml,
           });
         }
@@ -165,7 +153,7 @@ export async function POST(request: Request) {
           from: fromEmail,
           to: email,
           replyTo: "contact@airacode.online",
-          subject: `Inquiry Confirmation // AIRACODE Technologies [Ref: ${leadId}]`,
+          subject: "Thanks for contacting AIRACODE",
           html: userConfirmationHtml,
         });
 
@@ -175,7 +163,7 @@ export async function POST(request: Request) {
             from: fallbackFrom,
             to: email,
             replyTo: "contact@airacode.online",
-            subject: `Inquiry Confirmation // AIRACODE Technologies [Ref: ${leadId}]`,
+            subject: "Thanks for contacting AIRACODE",
             html: userConfirmationHtml,
           });
         }
@@ -187,7 +175,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: "Thank you! Our Lead Architect will review your parameters and respond within 4 business hours under mutual NDA.",
+        message: "Thanks! We'll reply within one business day.",
         leadId,
       },
       { status: 200 }
@@ -195,7 +183,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Contact API error:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to process inquiry." },
+      { success: false, error: "Something went wrong. Please try again." },
       { status: 500 }
     );
   }

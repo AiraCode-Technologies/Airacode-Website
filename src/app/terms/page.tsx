@@ -3,7 +3,7 @@ import { Code2, Clock, Shield, Scale, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CinematicScrollTracker from "@/components/CinematicScrollTracker";
-import ClayAmbientShapes from "@/components/ClayAmbientShapes";
+import SiteBackground from "@/components/SiteBackground";
 
 export const metadata = {
   title: "Terms of Service | AIRACODE",
@@ -14,7 +14,7 @@ export default function TermsPage() {
   return (
     <>
       <CinematicScrollTracker />
-      <ClayAmbientShapes />
+      <SiteBackground />
       <Navbar />
 
       <main className="relative z-10 flex-1 w-full">
